@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="SphereMesh" id=1]
+radius = 0.15
+height = 0.3
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.407843, 0.52549, 1, 1 )
+metallic = 0.79
+metallic_specular = 0.33
+roughness = 0.32
+
+[sub_resource type="SphereShape" id=3]
+radius = 0.150184
+
+[node name="Ball" type="RigidBody"]
+mass = 8.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 3 )
