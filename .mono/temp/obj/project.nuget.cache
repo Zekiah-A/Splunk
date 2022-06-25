@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "q1oGCLLxVcKmO09gAoXwBFAMmuRYCGFGov3OR8XcTfWCCzeqfk40qDhXLg45wDlMKLd3VyMWCoVUhEy7tPHl5Q==",
+  "dgSpecHash": "jG9RTQPlkGqXHGiWvhAyu1euKwovnaWdFfLZ5N1q797Msy8OWevCI39Lf1Va1AgA4H6UKLTrsfAIfjQjfbn9yQ==",
   "success": true,
   "projectFilePath": "/home/zekiah/Splunk/Splunk.csproj",
   "expectedPackageFiles": [
-    "/home/zekiah/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
-    "/home/zekiah/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.0/microsoft.netframework.referenceassemblies.net472.1.0.0.nupkg.sha512"
+    "/home/zekiah/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "/home/zekiah/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.2/microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
   ],
   "logs": []
 }
