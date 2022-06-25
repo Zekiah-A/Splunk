@@ -1,0 +1,9 @@
+/home/zekiah/Splunk/.mono/temp/bin/Debug/Splunk.dll
+/home/zekiah/Splunk/.mono/temp/bin/Debug/Splunk.pdb
+/home/zekiah/Splunk/.mono/temp/obj/Debug/Splunk.csproj.AssemblyReference.cache
+/home/zekiah/Splunk/.mono/temp/obj/Debug/Splunk.AssemblyInfoInputs.cache
+/home/zekiah/Splunk/.mono/temp/obj/Debug/Splunk.AssemblyInfo.cs
+/home/zekiah/Splunk/.mono/temp/obj/Debug/Splunk.csproj.CoreCompileInputs.cache
+/home/zekiah/Splunk/.mono/temp/obj/Debug/Splunk.dll
+/home/zekiah/Splunk/.mono/temp/obj/Debug/Splunk.pdb
+/home/zekiah/Splunk/.mono/temp/obj/Debug/Splunk.GeneratedMSBuildEditorConfig.editorconfig

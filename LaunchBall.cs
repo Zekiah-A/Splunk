@@ -44,18 +44,23 @@ public class LaunchBall : Camera
 		{
 			aimerGeometry.Clear();
 			aimerGeometry.Begin(Mesh.PrimitiveType.Triangles);
-
 			aimerGeometry.SetNormal(new Vector3(0, 0, 1));
-			aimerGeometry.SetUv(new Vector2(0, 0));
-			
+			var geometryY = GetTree().Root.GetChild(0).GetNode<Spatial>("AimerStart").Translation.y;
 			for (int i = 0; i < 10; i++)
 			{
 				//y = 0.1f * (1 * Math.Pow(1.4f, i))
-				aimerGeometry.AddVertex(new Vector3(
-					(float) (0.1f * (1 * Math.Pow(1.4f, i))) - 1,
-					GetTree().Root.GetChild(0).GetNode<Spatial>("AimerStart").Translation.y,
-					-i
-				));
+				aimerGeometry.SetUv(new Vector2(0, 0)); //Bottom Left
+				aimerGeometry.AddVertex(new Vector3((float) (0.1f * (-1 * Math.Pow(1.4f, i))) - 0.3f, geometryY, -i)); 
+				aimerGeometry.SetUv(new Vector2(0, 1)); //Top left
+				aimerGeometry.AddVertex(new Vector3((float) (0.1f * (-1 * Math.Pow(1.4f, i+1))) - 0.3f, geometryY, -i - 1));
+				aimerGeometry.SetUv(new Vector2(1, 0)); //Bottom right
+				aimerGeometry.AddVertex(new Vector3((float) (0.1f * (-1 * Math.Pow(1.4f, i))) + 0.3f, geometryY, -i));
+				aimerGeometry.SetUv(new Vector2(1, 0)); //Bottom right
+				aimerGeometry.AddVertex(new Vector3((float) (0.1f * (-1 * Math.Pow(1.4f, i))) + 0.3f, geometryY, -i));
+				aimerGeometry.SetUv(new Vector2(0, 1)); //Top Left
+				aimerGeometry.AddVertex(new Vector3((float) (0.1f * (-1 * Math.Pow(1.4f, i+1))) - 0.3f, geometryY, -i - 1));
+				aimerGeometry.SetUv(new Vector2(1, 1)); //Top Right
+				aimerGeometry.AddVertex(new Vector3((float) (0.1f * (-1 * Math.Pow(1.4f, i+1))) + 0.3f, geometryY, -i - 1));
 			}
 			aimerGeometry.End();
 		}
