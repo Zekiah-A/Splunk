@@ -3,17 +3,17 @@ using System;
 
 public class Player : Node
 {
-    public string Name;
-    public Image ProfileImage;
-    public int Score;
+	public string Name;
+	public Image ProfileImage;
+	public int Score;
 
-    public override void _Ready()
-    {
-        
-    }
+	public override void _Ready()
+	{
+		
+	}
 
-    public void ClearBalls()
-    {
-        
-    }
+	public void ClearBalls()
+	{
+		
+	}
 }

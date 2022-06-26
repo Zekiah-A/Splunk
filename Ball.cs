@@ -7,16 +7,18 @@ public class Ball : RigidBody
 	private const float Slide = 0.1f;
 	//By how much the ball will start curving on the exponential.
 	private const float CvFactor = 1.4f;
-	//Either 1 (right), 0 (no curve) or -1 (left), decides whether the exponential function should be normal, flat, or inverted.
-	public int CvDirection = 0;
+	//Fro, 1 (right), 0 (no curve) to -1 (left), decides whether the exponential function should be normal, flat, or inverted.
+	public float CvDirection = 0;
 	//Vector that the ball was thrown at.
 	public Vector3 InitialVelocity = Vector3.Zero;
 	
 	public override void _IntegrateForces(PhysicsDirectBodyState state)
 	{
-		//y = ac(r)^x
+		// j = 0 {-50 < k < 50}; c = 1.9; d = 0.9;
+		// (1/10000)j(c^(dx)){0 < x < 10}
+		float j = 50, c = 1.9f, d = 0.9f;
 		state.LinearVelocity = new Vector3(
-			(float) (Slide * (CvDirection * Math.Pow(CvFactor, Math.Abs(Translation.z)))) + InitialVelocity.x,
+			(float) (1e-4 * (j * Math.Pow(c, d * Mathf.Abs(Translation.z))) + InitialVelocity.x),
 			LinearVelocity.y,
 			LinearVelocity.z
 		);
