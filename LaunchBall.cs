@@ -14,7 +14,6 @@ public class LaunchBall : Camera
 	public override void _Ready()
 	{
 		aimerGeometry = GetTree().Root.GetChild(0).GetNode<ImmediateGeometry>("AimerGeometry");
-		MakeCurrent();
 		RedrawAimer();
 	}
 
