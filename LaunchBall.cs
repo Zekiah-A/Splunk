@@ -53,21 +53,23 @@ public class LaunchBall : Camera
 		aimerGeometry.Begin(Mesh.PrimitiveType.Triangles);
 		aimerGeometry.SetNormal(new Vector3(0, 0, 1));
 		var geometryY = GetTree().Root.GetChild(0).GetNode<Spatial>("AimerStart").Translation.y;
+		float func = 0; //Line up the end of the top of these polys, with the beginning of the next
 		for (int i = 0; i < 10; i++)
 		{
-			var func = (float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i)));
+			var nextFunc = (float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i+1)));
 			aimerGeometry.SetUv(Vector2.Zero); //Bottom Left
 			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) - 0.3f, geometryY, -i));
 			aimerGeometry.SetUv(Vector2.Down); //Top left
-			aimerGeometry.AddVertex(new Vector3((func) - 0.3f, geometryY, -i - 1));
+			aimerGeometry.AddVertex(new Vector3(nextFunc - 0.3f, geometryY, -i - 1));
 			aimerGeometry.SetUv(Vector2.Right); //Bottom right
 			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
 			aimerGeometry.SetUv(Vector2.Right); //Bottom right
 			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
 			aimerGeometry.SetUv(Vector2.Down); //Top Left
-			aimerGeometry.AddVertex(new Vector3((func) - 0.3f, geometryY, -i - 1));
+			aimerGeometry.AddVertex(new Vector3(nextFunc - 0.3f, geometryY, -i - 1));
 			aimerGeometry.SetUv(Vector2.One); //Top Right
-			aimerGeometry.AddVertex(new Vector3((func) + 0.3f, geometryY, -i - 1));
+			aimerGeometry.AddVertex(new Vector3(nextFunc + 0.3f, geometryY, -i - 1));
+			func = nextFunc;
 		}
 		aimerGeometry.End();
 	}
