@@ -15,6 +15,7 @@ public class LaunchBall : Camera
 	{
 		aimerGeometry = GetTree().Root.GetChild(0).GetNode<ImmediateGeometry>("AimerGeometry");
 		MakeCurrent();
+		RedrawAimer();
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -44,13 +45,9 @@ public class LaunchBall : Camera
 				AddChild(ball);
 			}
 		}
-
-		if (@event is InputEventMouseMotion mouseMotion)
-		{
-			RedrawAimer();
-		}
 	}
-
+	
+	//Optimised by BlobKat
 	private void RedrawAimer()
 	{
 		aimerGeometry.Clear();
@@ -59,22 +56,23 @@ public class LaunchBall : Camera
 		var geometryY = GetTree().Root.GetChild(0).GetNode<Spatial>("AimerStart").Translation.y;
 		for (int i = 0; i < 10; i++)
 		{
-			aimerGeometry.SetUv(new Vector2(0, 0)); //Bottom Left
-			aimerGeometry.AddVertex(new Vector3((float) (i == 0 ? 0 : 1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) - 0.3f, geometryY, -i));
-			aimerGeometry.SetUv(new Vector2(0, 1)); //Top left
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) - 0.3f, geometryY, -i - 1));
-			aimerGeometry.SetUv(new Vector2(1, 0)); //Bottom right
-			aimerGeometry.AddVertex(new Vector3((float) (i == 0 ? 0 : 1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) + 0.3f, geometryY, -i));
-			aimerGeometry.SetUv(new Vector2(1, 0)); //Bottom right
-			aimerGeometry.AddVertex(new Vector3((float) (i == 0 ? 0 : 1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) + 0.3f, geometryY, -i));
-			aimerGeometry.SetUv(new Vector2(0, 1)); //Top Left
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) - 0.3f, geometryY, -i - 1));
-			aimerGeometry.SetUv(new Vector2(1, 1)); //Top Right
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) + 0.3f, geometryY, -i - 1));
+			var func = (float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i)));
+			aimerGeometry.SetUv(Vector2.Zero); //Bottom Left
+			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) - 0.3f, geometryY, -i));
+			aimerGeometry.SetUv(Vector2.Down); //Top left
+			aimerGeometry.AddVertex(new Vector3((func) - 0.3f, geometryY, -i - 1));
+			aimerGeometry.SetUv(Vector2.Right); //Bottom right
+			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
+			aimerGeometry.SetUv(Vector2.Right); //Bottom right
+			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
+			aimerGeometry.SetUv(Vector2.Down); //Top Left
+			aimerGeometry.AddVertex(new Vector3((func) - 0.3f, geometryY, -i - 1));
+			aimerGeometry.SetUv(Vector2.One); //Top Right
+			aimerGeometry.AddVertex(new Vector3((func) + 0.3f, geometryY, -i - 1));
 		}
 		aimerGeometry.End();
 	}
-
+	
 	private void OnCurveSliderChanged(float value)
 	{
 		cvValue = value;
