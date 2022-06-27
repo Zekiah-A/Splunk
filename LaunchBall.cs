@@ -7,7 +7,7 @@ public class LaunchBall : Camera
 	private RigidBody ball;
 	private ImmediateGeometry aimerGeometry;
 	private float cvValue = 0;
-	private const int VelocityFwd = 3;
+	private const int VelocityFwd = 6;
 	private const int VelocityUp = 2;
 	private Vector2 mouseFlickStart = Vector2.Zero;
 
@@ -60,17 +60,17 @@ public class LaunchBall : Camera
 		for (int i = 0; i < 10; i++)
 		{
 			aimerGeometry.SetUv(new Vector2(0, 0)); //Bottom Left
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.9f, 0.9f * i))) - 0.3f, geometryY, -i));
+			aimerGeometry.AddVertex(new Vector3((float) (i == 0 ? 0 : 1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) - 0.3f, geometryY, -i));
 			aimerGeometry.SetUv(new Vector2(0, 1)); //Top left
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.9f, 0.9f * i))) - 0.3f, geometryY, -i - 1));
+			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) - 0.3f, geometryY, -i - 1));
 			aimerGeometry.SetUv(new Vector2(1, 0)); //Bottom right
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.9f, 0.9f * i))) + 0.3f, geometryY, -i));
+			aimerGeometry.AddVertex(new Vector3((float) (i == 0 ? 0 : 1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) + 0.3f, geometryY, -i));
 			aimerGeometry.SetUv(new Vector2(1, 0)); //Bottom right
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.9f, 0.9f * i))) + 0.3f, geometryY, -i));
+			aimerGeometry.AddVertex(new Vector3((float) (i == 0 ? 0 : 1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) + 0.3f, geometryY, -i));
 			aimerGeometry.SetUv(new Vector2(0, 1)); //Top Left
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.9f, 0.9f * i))) - 0.3f, geometryY, -i - 1));
+			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) - 0.3f, geometryY, -i - 1));
 			aimerGeometry.SetUv(new Vector2(1, 1)); //Top Right
-			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.9f, 0.9f * i))) + 0.3f, geometryY, -i - 1));
+			aimerGeometry.AddVertex(new Vector3((float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i))) + 0.3f, geometryY, -i - 1));
 		}
 		aimerGeometry.End();
 	}

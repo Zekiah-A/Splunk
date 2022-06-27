@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://DefaultPins.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LaunchBall.cs" type="Script" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://LocalPlayer.cs" type="Script" id=10]
 [ext_resource path="res://icon.png" type="Texture" id=11]
 [ext_resource path="res://aimer_line.png" type="Texture" id=12]
+[ext_resource path="res://back_wall_norm.png" type="Texture" id=13]
+[ext_resource path="res://intro.mp3" type="AudioStream" id=14]
+[ext_resource path="res://scores.png" type="Texture" id=15]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -28,6 +31,9 @@ roughness = 0.41
 
 [sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 4 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 13 )
 uv1_scale = Vector3( 0, 0.374, 0 )
 uv1_triplanar = true
 
@@ -234,6 +240,24 @@ transform = Transform( -2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, 0.6, 0.
 
 [node name="7" type="Spatial" parent="PlayerSeatPositions"]
 transform = Transform( -2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, 0.6, 0.3, 2.9 )
+
+[node name="OmniLight4" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -6.1 )
+light_color = Color( 0.92549, 0.929412, 0.52549, 1 )
+light_energy = 4.429
+omni_range = 0.6
+
+[node name="OmniLight5" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.4, -6.1 )
+light_color = Color( 0.92549, 0.929412, 0.52549, 1 )
+light_energy = 4.429
+omni_range = 0.6
+
+[node name="OmniLight6" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.4, -6.1 )
+light_color = Color( 0.92549, 0.929412, 0.52549, 1 )
+light_energy = 4.429
+omni_range = 0.6
 
 [node name="MainLane" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.9 )
@@ -462,11 +486,6 @@ shadow_enabled = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 1.5 )
 shadow_enabled = true
 
-[node name="OmniLight3" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.616979, -6.69233 )
-light_color = Color( 0.968627, 1, 0.435294, 1 )
-light_energy = 0.321
-
 [node name="Pins" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00236654, 0.195908, -6.02382 )
 
@@ -492,6 +511,7 @@ material/0 = SubResource( 11 )
 
 [node name="AimerGeometry" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 27 )
+cast_shadow = 0
 
 [node name="AimerStart" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0 )
@@ -570,15 +590,34 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
-anchor_left = 0.5
+[node name="Button" type="Button" parent="Control"]
+self_modulate = Color( 1, 1, 1, 0.611765 )
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
+margin_top = -60.0
+margin_right = 64.0
+margin_bottom = 60.0
+icon = ExtResource( 15 )
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="Control/Button"]
+modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = -7.0
+anchor_top = -0.666667
+anchor_bottom = 1.46667
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Button/Panel"]
+anchor_top = 0.125
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="Control/Button/Panel/ScrollContainer"]
+margin_right = 436.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 436, 224 )
 
 [node name="CloseupCamera" type="Camera" parent="."]
 transform = Transform( 0.5, 0.224144, -0.836516, 0, 0.965926, 0.258819, 0.866025, -0.12941, 0.482963, -1.2, 0.7, -5 )
@@ -592,6 +631,9 @@ shape = SubResource( 22 )
 [node name="CloseupTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
 
 [connection signal="value_changed" from="Control/CurveSlider" to="Player/Player/Head/Camera" method="OnCurveSliderChanged"]
 [connection signal="body_entered" from="CloseupArea" to="." method="OnCloseupAreaEntered"]
