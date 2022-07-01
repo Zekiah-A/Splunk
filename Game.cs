@@ -91,4 +91,11 @@ public class Game : Spatial
 		//foreach on this after each round and set all back to white
 		((Button) GetNode("Control/DownPanel").GetChildren()[pinIndex]).Pressed = true;
 	}
+	
+	private void OnDespawnBodyEntered(object body)
+	{
+		if (body is Ball ball)
+			ball.QueueFree();
+	}
 }
+

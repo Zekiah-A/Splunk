@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://DefaultPins.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LaunchBall.cs" type="Script" id=2]
@@ -261,6 +261,12 @@ tracks/1/keys = {
 "update": 0,
 "values": [ false ]
 }
+
+[sub_resource type="BoxShape" id=39]
+extents = Vector3( 1, 0.5, 0.5 )
+
+[sub_resource type="BoxShape" id=40]
+extents = Vector3( 3, 0.1, 2 )
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 8 )
@@ -862,13 +868,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -0.4 )
 mesh = SubResource( 31 )
 
 [node name="Screens" parent="." instance=ExtResource( 22 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1.5, -0.5 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1.55, 0.5 )
 
 [node name="Screens2" parent="." instance=ExtResource( 22 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -2.5, 1.5, -0.5 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -2.5, 1.55, 0.5 )
 
 [node name="Screens3" parent="." instance=ExtResource( 22 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 2.5, 1.5, -0.5 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 2.5, 1.55, 0.5 )
 
 [node name="AimerGeometry" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 27 )
@@ -898,39 +904,6 @@ min_value = -50.0
 max_value = 50.0
 __meta__ = {
 "_edit_group_": true,
-"_edit_use_anchors_": true
-}
-
-[node name="ScoresButton" type="Button" parent="Control"]
-self_modulate = Color( 1, 1, 1, 0.611765 )
-anchor_top = 0.4
-anchor_right = 0.062
-anchor_bottom = 0.6
-margin_right = 0.511753
-margin_bottom = -6.10352e-05
-icon = ExtResource( 15 )
-expand_icon = true
-
-[node name="Panel" type="Panel" parent="Control/ScoresButton"]
-modulate = Color( 1, 1, 1, 0.784314 )
-anchor_left = -7.00003
-anchor_top = -2.0
-anchor_bottom = 3.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Title" type="Label" parent="Control/ScoresButton/Panel"]
-anchor_left = 0.018
-anchor_top = 0.0133333
-anchor_right = 0.982143
-anchor_bottom = 0.0934401
-margin_left = -0.0640001
-margin_bottom = -0.0640411
-custom_fonts/font = SubResource( 36 )
-text = "Current match scores:"
-clip_text = true
-__meta__ = {
 "_edit_use_anchors_": true
 }
 
@@ -1189,6 +1162,39 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="ScoresButton" type="Button" parent="Control"]
+self_modulate = Color( 1, 1, 1, 0.611765 )
+anchor_top = 0.4
+anchor_right = 0.062
+anchor_bottom = 0.6
+margin_right = 0.511753
+margin_bottom = -6.10352e-05
+icon = ExtResource( 15 )
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="Control/ScoresButton"]
+modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = -7.00003
+anchor_top = -2.0
+anchor_bottom = 3.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Title" type="Label" parent="Control/ScoresButton/Panel"]
+anchor_left = 0.018
+anchor_top = 0.0133333
+anchor_right = 0.982143
+anchor_bottom = 0.0934401
+margin_left = -0.0640001
+margin_bottom = -0.0640411
+custom_fonts/font = SubResource( 36 )
+text = "Current match scores:"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="CreditsPanel" type="Panel" parent="Control"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
@@ -1315,11 +1321,27 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="DespawnArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -7.5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="DespawnArea"]
+shape = SubResource( 39 )
+
+[node name="UnderCollisionShape" type="CollisionShape" parent="DespawnArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, -2.5 )
+shape = SubResource( 40 )
+
 [connection signal="value_changed" from="Control/CurveSlider" to="Player/Player/Head/Camera" method="OnCurveSliderChanged"]
 [connection signal="pressed" from="Control/ScoresButton" to="." method="OnScoresPressed"]
 [connection signal="pressed" from="Control/TitlePanel/Panel/Play" to="." method="OnPlayPressed"]
 [connection signal="body_entered" from="CloseupArea" to="." method="OnCloseupAreaEntered"]
 [connection signal="timeout" from="CloseupTimer" to="." method="OnCloseupTimerTimeout"]
+[connection signal="area_entered" from="DespawnArea" to="." method="OnDespawnAreaEntered"]
+[connection signal="body_entered" from="DespawnArea" to="." method="OnDespawnBodyEntered"]
 
 [editable path="Player"]
 [editable path="Pins"]

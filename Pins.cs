@@ -38,14 +38,14 @@ public class Pins : Spatial
 		audioPlayer.Play();
 	}
 	
-	//After 3 seconds of no collisions, we assume that all pins have settled down, and now can count how many were knocked over
-	private void OnSettleTimerTimeout()
+	//After 3 seconds of no collisions, with the ball, pins, other pins, or the collider under the world, we assume that all pins have settled down, and now can count how many were knocked over.
+	public void OnSettleTimerTimeout()
 	{
 		for (int i = 0; i < GetChildCount() - 1; i++)
 		{
 			var pin = GetChildren()[i] is RigidBody ? (RigidBody) GetChildren()[i] : null;
 			if (pin is null) return;
-			if (pin.RotationDegrees.x > 10 || pin.RotationDegrees.x < -10 || pin.RotationDegrees.z > 10 || pin.RotationDegrees.z < -10)
+			if (pin.Translation.y < -1 || pin.RotationDegrees.x > 10 || pin.RotationDegrees.x < -10 || pin.RotationDegrees.z > 10 || pin.RotationDegrees.z < -10)
 			{
 				pin.QueueFree();
 				EmitSignal(nameof(PinKnockedDown), int.Parse(pin.Name));
