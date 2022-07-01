@@ -230,8 +230,9 @@ material/1 = ExtResource( 3 )
 wait_time = 3.0
 one_shot = true
 
-[node name="PinsAudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
+[node name="ASP" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 6 )
+bus = "PinBallBus"
 
 [connection signal="body_entered" from="Pin" to="." method="OnPinCollision" binds= [ 0 ]]
 [connection signal="body_entered" from="Pin2" to="." method="OnPinCollision" binds= [ 1 ]]
