@@ -6,7 +6,7 @@ public class Game : Spatial
 {
 	public override void _Ready()
 	{
-		
+		GetNode<Pins>("Pins").Connect("PinKnockedDown", this,nameof(OnPinKnockedDown));
 	}
 
 	private void OnCloseupAreaEntered(object body)
@@ -68,7 +68,7 @@ public class Game : Spatial
 		GetNode("Control/CreditsPanel").QueueFree();
 	}
 	
-	private async void OnScoresPressed()
+	private void OnScoresPressed()
 	{
 		var tween = GetNode<Tween>("Control/Tween");
 		var scoresButton = GetNode<Button>("Control/ScoresButton");
@@ -84,5 +84,11 @@ public class Game : Spatial
 			Tween.EaseType.Out
 		);
 		tween.Start();
+	}
+
+	private void OnPinKnockedDown(int pinIndex)
+	{
+		//foreach on this after each round and set all back to white
+		((Button) GetNode("Control/DownPanel").GetChildren()[pinIndex]).Pressed = true;
 	}
 }

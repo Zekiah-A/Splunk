@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://DefaultPins.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LaunchBall.cs" type="Script" id=2]
@@ -24,6 +24,8 @@
 [ext_resource path="res://Screens.glb" type="PackedScene" id=22]
 [ext_resource path="res://game.lmbake" type="BakedLightmapData" id=23]
 [ext_resource path="res://dispenser_rail.tres" type="Material" id=24]
+[ext_resource path="res://pindown_normal_style.tres" type="StyleBox" id=25]
+[ext_resource path="res://pindown_pressed_style.tres" type="StyleBox" id=26]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -927,11 +929,268 @@ margin_left = -0.0640001
 margin_bottom = -0.0640411
 custom_fonts/font = SubResource( 36 )
 text = "Current match scores:"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="DownPanel" type="Panel" parent="Control"]
+self_modulate = Color( 1, 1, 1, 0 )
+light_mask = 0
+anchor_left = 0.074
+anchor_top = 0.11
+anchor_right = 0.074
+anchor_bottom = 0.11
+margin_left = -67.776
+margin_top = -58.0
+margin_right = 60.224
+margin_bottom = 58.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button0" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.5
+anchor_top = 0.862
+anchor_right = 0.5
+anchor_bottom = 0.862
+margin_left = -12.0
+margin_top = -11.992
+margin_right = 12.0
+margin_bottom = 12.008
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button1" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.375
+anchor_top = 0.621
+anchor_right = 0.375
+anchor_bottom = 0.621
+margin_left = -12.0
+margin_top = -12.036
+margin_right = 12.0
+margin_bottom = 11.964
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "2"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button2" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.625
+anchor_top = 0.621
+anchor_right = 0.625
+anchor_bottom = 0.621
+margin_left = -12.0
+margin_top = -12.036
+margin_right = 12.0
+margin_bottom = 11.964
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "3"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button3" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.25
+anchor_top = 0.379
+anchor_right = 0.25
+anchor_bottom = 0.379
+margin_left = -12.0
+margin_top = -11.964
+margin_right = 12.0
+margin_bottom = 12.036
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "4"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button4" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.5
+anchor_top = 0.379
+anchor_right = 0.5
+anchor_bottom = 0.379
+margin_left = -12.0
+margin_top = -11.964
+margin_right = 12.0
+margin_bottom = 12.036
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "5"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button5" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.75
+anchor_top = 0.379
+anchor_right = 0.75
+anchor_bottom = 0.379
+margin_left = -12.0
+margin_top = -11.964
+margin_right = 12.0
+margin_bottom = 12.036
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "6"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button6" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.125
+anchor_top = 0.138
+anchor_right = 0.125
+anchor_bottom = 0.138
+margin_left = -12.0
+margin_top = -12.008
+margin_right = 12.0
+margin_bottom = 11.992
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "7"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button7" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.375
+anchor_top = 0.138
+anchor_right = 0.375
+anchor_bottom = 0.138
+margin_left = -12.0
+margin_top = -12.008
+margin_right = 12.0
+margin_bottom = 11.992
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "8"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button8" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.625
+anchor_top = 0.138
+anchor_right = 0.625
+anchor_bottom = 0.138
+margin_left = -12.0
+margin_top = -12.008
+margin_right = 12.0
+margin_bottom = 11.992
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "9"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button9" type="Button" parent="Control/DownPanel"]
+anchor_left = 0.875
+anchor_top = 0.138
+anchor_right = 0.875
+anchor_bottom = 0.138
+margin_left = -12.0
+margin_top = -12.008
+margin_right = 12.0
+margin_bottom = 11.992
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_styles/pressed = ExtResource( 26 )
+custom_styles/normal = ExtResource( 25 )
+toggle_mode = true
+button_mask = 0
+enabled_focus_mode = 0
+text = "10"
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="CreditsPanel" type="Panel" parent="Control"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.413
@@ -963,6 +1222,7 @@ __meta__ = {
 }
 
 [node name="TitlePanel" type="Panel" parent="Control"]
+visible = false
 material = SubResource( 33 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1052,6 +1312,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.1 )
 extents = Vector3( 4.2, 1.1, 6.2 )
 environment_mode = 1
 light_data = ExtResource( 23 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [connection signal="value_changed" from="Control/CurveSlider" to="Player/Player/Head/Camera" method="OnCurveSliderChanged"]
 [connection signal="pressed" from="Control/ScoresButton" to="." method="OnScoresPressed"]
