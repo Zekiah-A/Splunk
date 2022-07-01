@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=5 format=2]
+[gd_resource type="AudioBusLayout" load_steps=4 format=2]
 
 [sub_resource type="AudioEffectDistortion" id=1]
 resource_name = "Distortion"
@@ -9,13 +9,6 @@ resource_name = "Compressor"
 
 [sub_resource type="AudioEffectStereoEnhance" id=4]
 resource_name = "StereoEnhance"
-
-[sub_resource type="AudioEffectReverb" id=5]
-resource_name = "Reverb"
-room_size = 0.2
-damping = 0.8
-spread = 0.5
-hipass = 0.3
 
 [resource]
 bus/1/name = "PinBallBus"
@@ -30,5 +23,3 @@ bus/1/effect/1/effect = SubResource( 3 )
 bus/1/effect/1/enabled = true
 bus/1/effect/2/effect = SubResource( 4 )
 bus/1/effect/2/enabled = true
-bus/1/effect/3/effect = SubResource( 5 )
-bus/1/effect/3/enabled = true

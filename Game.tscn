@@ -860,13 +860,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, -0.4 )
 mesh = SubResource( 31 )
 
 [node name="Screens" parent="." instance=ExtResource( 22 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1.5, 0.5 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1.5, -0.5 )
 
 [node name="Screens2" parent="." instance=ExtResource( 22 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -2.5, 1.5, 0.5 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -2.5, 1.5, -0.5 )
 
 [node name="Screens3" parent="." instance=ExtResource( 22 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 2.5, 1.5, 0.5 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 2.5, 1.5, -0.5 )
 
 [node name="AimerGeometry" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 27 )
@@ -1048,8 +1048,8 @@ current = true
 fov = 8.0
 
 [node name="BakedLightmap" type="BakedLightmap" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-extents = Vector3( 10, 2, 16 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.1 )
+extents = Vector3( 4.2, 1.1, 6.2 )
 environment_mode = 1
 light_data = ExtResource( 23 )
 
