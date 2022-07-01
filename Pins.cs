@@ -45,7 +45,7 @@ public class Pins : Spatial
 		{
 			var pin = GetChildren()[i] is RigidBody ? (RigidBody) GetChildren()[i] : null;
 			if (pin is null) return;
-			if (pin.Translation.y < -1 || pin.RotationDegrees.x > 10 || pin.RotationDegrees.x < -10 || pin.RotationDegrees.z > 10 || pin.RotationDegrees.z < -10)
+			if (pin.Translation.y < -0.1f || pin.RotationDegrees.x > 10 || pin.RotationDegrees.x < -10 || pin.RotationDegrees.z > 10 || pin.RotationDegrees.z < -10)
 			{
 				pin.QueueFree();
 				EmitSignal(nameof(PinKnockedDown), int.Parse(pin.Name));

@@ -10,10 +10,17 @@ public class LaunchBall : Camera
 	private const int VelocityFwd = 6;
 	private const int VelocityUp = 2;
 	private Vector2 mouseFlickStart = Vector2.Zero;
+	private TextureRect[] aimerPointers;
+	private readonly Vector2 ptrMidpoint = new Vector2(40, 40);
 
 	public override void _Ready()
 	{
 		aimerGeometry = GetTree().Root.GetChild(0).GetNode<ImmediateGeometry>("AimerGeometry");
+		aimerPointers = new[]
+		{
+			GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer"),
+			GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer2")
+		};
 		RedrawAimer();
 	}
 
@@ -22,16 +29,23 @@ public class LaunchBall : Camera
 		if (@event is InputEventMouseButton mouseButton)
 		{
 			if (mouseButton.Pressed)
+			{
 				mouseFlickStart = mouseButton.Position;
+				aimerPointers[0].Visible = true;
+				aimerPointers[0].RectPosition = mouseButton.Position - ptrMidpoint;
+				aimerPointers[1].Visible = true;
+			}
 			else
 			{
+				GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer").Visible = false;
+				GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer2").Visible = false;
 				//Projection from the bottom centre of the screen (where the ball is thrown from)
 				var throwRoot = ProjectPosition(new Vector2(GetViewport().GetVisibleRect().Size.x / 2, GetViewport().GetVisibleRect().Size.y), 2);
 				var ballScene = GD.Load<PackedScene>("res://Ball.tscn");
 				ball = (RigidBody) ballScene.Instance();
 				ball.Translation = throwRoot;
-				//var flick = new Vector2(mouseFlickStart.x - mouseButton.Position.x, mouseFlickStart.y - mouseButton.Position.y).Normalized(); //Flicks from start to end
-				var flick = new Vector2(GetViewport().GetVisibleRect().Size.x / 2 -  mouseButton.Position.x, GetViewport().GetVisibleRect().Size.y - mouseButton.Position.y).Normalized(); //"Flicks" from bottom centre screen to end
+				var flick = new Vector2(mouseFlickStart.x - mouseButton.Position.x, mouseFlickStart.y - mouseButton.Position.y).Normalized(); //Flicks from start to end
+				//var flick = new Vector2(GetViewport().GetVisibleRect().Size.x / 2 -  mouseButton.Position.x, GetViewport().GetVisibleRect().Size.y - mouseButton.Position.y).Normalized(); //"Flicks" from bottom centre screen to end
 				// the x value is the inverse of how you flicked across
 				//the y value gets how high the flick was in relation to the screen's height, and then multiplies by a constant, to determine throw height
 				//The z value basically judges how far up you dragged your mouse to flick, to determine with how much power it is thrown, it is clamped so that it can not be negative
@@ -44,6 +58,7 @@ public class LaunchBall : Camera
 				AddChild(ball);
 			}
 		}
+		if (@event is InputEventMouseMotion mouseMotion) aimerPointers[1].RectPosition = mouseMotion.Position - ptrMidpoint;
 	}
 	
 	//Optimised by BlobKat
