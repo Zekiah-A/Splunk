@@ -30,8 +30,8 @@ public class LaunchBall : Camera
 				var ballScene = GD.Load<PackedScene>("res://Ball.tscn");
 				ball = (RigidBody) ballScene.Instance();
 				ball.Translation = throwRoot;
-				var flick = new Vector2(mouseFlickStart.x - mouseButton.Position.x, mouseFlickStart.y - mouseButton.Position.y).Normalized(); //Flicks from start to end
-				//var flick = new Vector2(GetViewport().GetVisibleRect().Size.x / 2 -  mouseButton.Position.x, GetViewport().GetVisibleRect().Size.y - mouseButton.Position.y).Normalized(); //"Flicks" from bottom centre screen to end
+				//var flick = new Vector2(mouseFlickStart.x - mouseButton.Position.x, mouseFlickStart.y - mouseButton.Position.y).Normalized(); //Flicks from start to end
+				var flick = new Vector2(GetViewport().GetVisibleRect().Size.x / 2 -  mouseButton.Position.x, GetViewport().GetVisibleRect().Size.y - mouseButton.Position.y).Normalized(); //"Flicks" from bottom centre screen to end
 				// the x value is the inverse of how you flicked across
 				//the y value gets how high the flick was in relation to the screen's height, and then multiplies by a constant, to determine throw height
 				//The z value basically judges how far up you dragged your mouse to flick, to determine with how much power it is thrown, it is clamped so that it can not be negative

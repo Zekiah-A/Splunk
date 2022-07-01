@@ -1,0 +1,12 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float blur_amount : hint_range(0, 5);
+uniform float brightness : hint_range(0, 4);
+
+void fragment() {
+	float texture_alpha = texture(TEXTURE, UV).a;
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount) * vec4(brightness, brightness, brightness, texture_alpha);
+}"

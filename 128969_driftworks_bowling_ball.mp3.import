@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/128969_driftworks_bowling_ball.mp3-ffd2d35dd805d637b00f2bf2b6841a5a.mp3str"
+
+[deps]
+
+source_file="res://128969_driftworks_bowling_ball.mp3"
+dest_files=[ "res://.import/128969_driftworks_bowling_ball.mp3-ffd2d35dd805d637b00f2bf2b6841a5a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

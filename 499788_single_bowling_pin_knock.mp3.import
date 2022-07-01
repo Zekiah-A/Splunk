@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/499788_single_bowling_pin_knock.mp3-2ebc293f4930c79313bcf4ff721d056e.mp3str"
+
+[deps]
+
+source_file="res://499788_single_bowling_pin_knock.mp3"
+dest_files=[ "res://.import/499788_single_bowling_pin_knock.mp3-2ebc293f4930c79313bcf4ff721d056e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

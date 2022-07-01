@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/BallDispenser.glb-9285f6e11b00861ff321d1bdc0868a94.scn"
+path="res://.import/Screens.glb-ffc44a2fd174b821639bb47ce71ab3e4.scn"
 
 [deps]
 
-source_file="res://BallDispenser.glb"
-dest_files=[ "res://.import/BallDispenser.glb-9285f6e11b00861ff321d1bdc0868a94.scn" ]
+source_file="res://Screens.glb"
+dest_files=[ "res://.import/Screens.glb-ffc44a2fd174b821639bb47ce71ab3e4.scn" ]
 
 [params]
 

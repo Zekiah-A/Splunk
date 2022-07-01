@@ -28,7 +28,6 @@ public class Game : Spatial
 	{
 		var tween = GetNode<Tween>("Control/Tween");
 		GetNode<AnimationPlayer>("AnimationPlayer").Play("intro");
-		//This can be optimised
 		tween.InterpolateProperty(
 			GetNode("Control/TitlePanel"),
 			"rect_scale",
@@ -53,7 +52,7 @@ public class Game : Spatial
 			"rect_scale",
 			Vector2.One,
 			new Vector2(1.2f, 1.2f),
-			5
+			4
 		);
 		tween.InterpolateProperty(
 			GetNode("Control/CreditsPanel"),
@@ -67,5 +66,23 @@ public class Game : Spatial
 		tween.Start();
 		await ToSignal(tween, "tween_completed");
 		GetNode("Control/CreditsPanel").QueueFree();
+	}
+	
+	private async void OnScoresPressed()
+	{
+		var tween = GetNode<Tween>("Control/Tween");
+		var scoresButton = GetNode<Button>("Control/ScoresButton");
+		tween.InterpolateProperty(
+			scoresButton,
+			"rect_position",
+			scoresButton.RectPosition,
+			scoresButton.RectPosition.x == 0
+					? new Vector2(scoresButton.GetNode<Panel>("Panel").RectSize.x, GetViewport().GetVisibleRect().Size.y / 2 - scoresButton.RectSize.y / 2)
+					: new Vector2(0, GetViewport().GetVisibleRect().Size.y / 2 - scoresButton.RectSize.y / 2),
+			1,
+			Tween.TransitionType.Cubic,
+			Tween.EaseType.Out
+		);
+		tween.Start();
 	}
 }

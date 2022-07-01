@@ -1,23 +1,35 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://pin.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://pin_physicsmaterial.tres" type="PhysicsMaterial" id=2]
 [ext_resource path="res://pin_strip_material.tres" type="Material" id=3]
 [ext_resource path="res://pin_body_material.tres" type="Material" id=4]
+[ext_resource path="res://Pins.cs" type="Script" id=5]
+[ext_resource path="res://499788_single_bowling_pin_knock.mp3" type="AudioStream" id=6]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.05, 0.15, 0.05 )
 
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.035, 0.1, 0.035 )
+
 [node name="Pins" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0 )
+script = ExtResource( 5 )
 
 [node name="Pin" type="RigidBody" parent="."]
 mass = 0.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -29,10 +41,16 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15551, 0, -0.15551 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin2"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -44,10 +62,16 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153289, 0, -0.151067 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin3"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -59,10 +83,16 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.306577 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin4"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -74,10 +104,16 @@ material/1 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31102, 0, -0.304355 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin5"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -89,10 +125,16 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304355, 0, -0.302134 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin6"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -104,10 +146,16 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455422, 0, -0.459866 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin7"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -119,10 +167,16 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153288, 0, -0.450979 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin8"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -134,10 +188,16 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15551, 0, -0.455422 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin9"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin9"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
@@ -149,13 +209,38 @@ material/1 = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.464309, 0, -0.453201 )
 mass = 1.5
 physics_material_override = ExtResource( 2 )
+contacts_reported = 3
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Pin10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00079795, 0 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Pin10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215, 0 )
+shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Pin10"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
+
+[node name="SettleTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="PinsAudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 6 )
+
+[connection signal="body_entered" from="Pin" to="." method="OnPinCollision" binds= [ 0 ]]
+[connection signal="body_entered" from="Pin2" to="." method="OnPinCollision" binds= [ 1 ]]
+[connection signal="body_entered" from="Pin3" to="." method="OnPinCollision" binds= [ 2 ]]
+[connection signal="body_entered" from="Pin4" to="." method="OnPinCollision" binds= [ 3 ]]
+[connection signal="body_entered" from="Pin5" to="." method="OnPinCollision" binds= [ 4 ]]
+[connection signal="body_entered" from="Pin6" to="." method="OnPinCollision" binds= [ 5 ]]
+[connection signal="body_entered" from="Pin7" to="." method="OnPinCollision" binds= [ 6 ]]
+[connection signal="body_entered" from="Pin8" to="." method="OnPinCollision" binds= [ 7 ]]
+[connection signal="body_entered" from="Pin9" to="." method="OnPinCollision" binds= [ 8 ]]
+[connection signal="body_entered" from="Pin10" to="." method="OnPinCollision" binds= [ 9 ]]
+[connection signal="timeout" from="SettleTimer" to="." method="OnSettleTimerTimeout"]
