@@ -21,6 +21,7 @@ public class LaunchBall : Camera
 			GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer"),
 			GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer2")
 		};
+		aimerPointers[0].Visible = false; aimerPointers[1].Visible = false;
 		RedrawAimer();
 	}
 
