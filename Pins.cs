@@ -18,7 +18,7 @@ public class Pins : Spatial
 
 	private async void OnPinCollision(object body, int pinIndex)
 	{
-		if (body is RigidBody)
+		if (body is RigidBody rigidBody)
 		{
 			settleTimer.Start(3);
 			if (!audioPlayer.Playing)
@@ -28,6 +28,12 @@ public class Pins : Spatial
 				await ToSignal(audioPlayer, "finished");
 				PlayPinSound();
 			}
+			
+			//Instance hit effect particles between the ball and pin hit. //We should use OnCollisionShapeEntered to get the normal properly.
+			var particles = (Particles) GD.Load<PackedScene>("res://HitParticles.tscn").Instance(); //TODO: Load packed scenes like this beforehand to improve perf.
+			particles.Translation = rigidBody.Translation; //GetNode<Spatial>($"{pinIndex}").Translation + rigidBody.Translation / 2;
+			particles.Emitting = true;
+			AddChild(particles);
 		}
 	}
 	

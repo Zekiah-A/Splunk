@@ -94,8 +94,9 @@ public class Game : Spatial
 	
 	private void OnDespawnBodyEntered(object body)
 	{
-		if (body is Ball ball)
-			ball.QueueFree();
+		//NOTE: WE must wait before we do this, so that the particles have time to render, should only clear at the end of the round????
+		//if (body is Ball ball)
+		//	ball.QueueFree();
 	}
 }
 

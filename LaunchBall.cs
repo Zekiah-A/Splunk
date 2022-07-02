@@ -47,7 +47,7 @@ public class LaunchBall : Camera
 				if (invalidFlick) return;
 				//Projection from the bottom centre of the screen (where the ball is thrown from)
 				var throwRoot = ProjectPosition(new Vector2(GetViewport().GetVisibleRect().Size.x / 2, GetViewport().GetVisibleRect().Size.y), 2);
-				var ballScene = GD.Load<PackedScene>("res://Ball.tscn");
+				var ballScene = GD.Load<PackedScene>("res://Ball.tscn"); //TODO: Load packed scenes like this beforehand to improve perf.
 				ball = (RigidBody) ballScene.Instance();
 				ball.Translation = throwRoot;
 				var flick = new Vector2(mouseFlickStart.x - mouseButton.Position.x, mouseFlickStart.y - mouseButton.Position.y).Normalized(); //Flicks from start to end
