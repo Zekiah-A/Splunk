@@ -285,7 +285,7 @@ script = ExtResource( 8 )
 environment = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 9 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.6, 1 )
+transform = Transform( -1, 0, -2.62268e-07, -1.42109e-14, 1, 5.96046e-08, 2.62268e-07, 5.96046e-08, -1, 0, 0.6, 1 )
 script = ExtResource( 10 )
 
 [node name="Body" parent="Player/Player" index="0"]

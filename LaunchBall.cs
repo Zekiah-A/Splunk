@@ -9,9 +9,13 @@ public class LaunchBall : Camera
 	private float cvValue = 0;
 	private const int VelocityFwd = 6;
 	private const int VelocityUp = 2;
+	private const int InvalidFlickDist = 20;
 	private Vector2 mouseFlickStart = Vector2.Zero;
 	private TextureRect[] aimerPointers;
 	private readonly Vector2 ptrMidpoint = new Vector2(40, 40);
+	private readonly Color aimerNormal = new Color(1, 1, 1, 0.5f);
+	private readonly Color aimerInvalid = new Color(1, 0.2f, 0.2f, 0.5f);
+	private bool invalidFlick;
 
 	public override void _Ready()
 	{
@@ -40,6 +44,7 @@ public class LaunchBall : Camera
 			{
 				GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer").Visible = false;
 				GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer2").Visible = false;
+				if (invalidFlick) return;
 				//Projection from the bottom centre of the screen (where the ball is thrown from)
 				var throwRoot = ProjectPosition(new Vector2(GetViewport().GetVisibleRect().Size.x / 2, GetViewport().GetVisibleRect().Size.y), 2);
 				var ballScene = GD.Load<PackedScene>("res://Ball.tscn");
@@ -59,7 +64,14 @@ public class LaunchBall : Camera
 				AddChild(ball);
 			}
 		}
-		if (@event is InputEventMouseMotion mouseMotion) aimerPointers[1].RectPosition = mouseMotion.Position - ptrMidpoint;
+
+		if (@event is InputEventMouseMotion mouseMotion)
+		{
+			//If the two aimers are over each other, we allow the player to cancel the throw.
+			aimerPointers[1].Modulate = aimerPointers[0].RectPosition.DistanceTo(aimerPointers[1].RectPosition) < InvalidFlickDist ? aimerInvalid : aimerNormal;
+			invalidFlick = aimerPointers[0].RectPosition.DistanceTo(aimerPointers[1].RectPosition) < InvalidFlickDist;
+			aimerPointers[1].RectPosition = mouseMotion.Position - ptrMidpoint;
+		}
 	}
 	
 	//Optimised by BlobKat
@@ -70,7 +82,7 @@ public class LaunchBall : Camera
 		aimerGeometry.SetNormal(new Vector3(0, 0, 1));
 		var geometryY = GetTree().Root.GetChild(0).GetNode<Spatial>("AimerStart").Translation.y;
 		float func = 0; //Line up the end of the top of these polys, with the beginning of the next
-		for (int i = 0; i < 10; i++)
+		for (var i = 0; i < 10; i++)
 		{
 			var nextFunc = (float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i+1)));
 			aimerGeometry.SetUv(Vector2.Zero); //Bottom Left

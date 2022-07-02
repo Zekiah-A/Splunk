@@ -29,6 +29,8 @@ public class LocalPlayer : Spatial
 
 	public void MoveTo(string objectPosition)
 	{
+		//If we are looking down the lane, we can just cull everything behind us. //Second layer not visible if at lane pos
+		playerHead.GetNode<Camera>("Camera").SetCullMaskBit(1, objectPosition != "PlayerLanePosition");
 		//PlayerLanePosition, PlayerDispenserPosition, PlayerSeatPosition/0,/1,/2
 		if (Translation == GetTree().Root.GetChild(0).GetNode<Spatial>(objectPosition).Translation) return;
 		tween.InterpolateProperty(
