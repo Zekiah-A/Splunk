@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public class Game : Spatial
 {
+	private readonly string[] graphicsBbLabels = {
+		"Low graphics:\nMAY IMPACT GAMEPLAY GREATLY. Will disable all lighting, particles and non-essential models.",
+		"Mid graphics:\nMost lighting effects will be disabled. Lower resolution LOD models will be used further away from the camera.",
+		"Sublime graphics:\nNOT FOR LOW END DEVICES. All high resolution models,, lighting and particle effects will be rendered."
+	};
+	
 	public override void _Ready()
 	{
 		GetNode<Pins>("Pins").Connect("PinKnockedDown", this,nameof(OnPinKnockedDown));
@@ -90,13 +96,6 @@ public class Game : Spatial
 	{
 		//foreach on this after each round and set all back to white
 		((Button) GetNode("Control/DownPanel").GetChildren()[pinIndex]).Pressed = true;
-	}
-	
-	private void OnDespawnBodyEntered(object body)
-	{
-		//NOTE: WE must wait before we do this, so that the particles have time to render, should only clear at the end of the round????
-		//if (body is Ball ball)
-		//	ball.QueueFree();
 	}
 }
 

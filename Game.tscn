@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://DefaultPins.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LaunchBall.cs" type="Script" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://transition.tres" type="Shader" id=27]
 [ext_resource path="res://result_mask.png" type="Texture" id=28]
 [ext_resource path="res://aimer_pointer.png" type="Texture" id=29]
+[ext_resource path="res://reddit_sans_bold_title.tres" type="DynamicFont" id=30]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -202,6 +203,16 @@ surfaces/0 = {
 "vertex_count": 180
 }
 
+[sub_resource type="PlaneMesh" id=42]
+size = Vector2( 0.5, 1 )
+
+[sub_resource type="SpatialMaterial" id=43]
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 5.0
+emission_operator = 0
+emission_on_uv2 = false
+
 [sub_resource type="SpatialMaterial" id=27]
 flags_transparent = true
 flags_unshaded = true
@@ -217,11 +228,6 @@ thickness = 10
 [sub_resource type="StyleBoxEmpty" id=19]
 
 [sub_resource type="StyleBoxEmpty" id=20]
-
-[sub_resource type="DynamicFont" id=36]
-size = 38
-use_filter = true
-font_data = ExtResource( 20 )
 
 [sub_resource type="StyleBoxEmpty" id=34]
 
@@ -648,17 +654,20 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -6.1 )
 light_color = Color( 0.92549, 0.929412, 0.52549, 1 )
 light_energy = 4.429
+light_size = 1.0
 light_bake_mode = 2
 omni_range = 0.6
 
 [node name="CeilingOmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2.9 )
+light_size = 1.0
 light_bake_mode = 2
 shadow_enabled = true
 omni_range = 5.2
 
 [node name="CeilingOmniLight2" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 1.5 )
+light_size = 1.0
 light_bake_mode = 2
 shadow_enabled = true
 omni_range = 4.5
@@ -979,6 +988,18 @@ layers = 2
 [node name="Rod" parent="Screens3" index="4"]
 layers = 2
 
+[node name="ExitDoor" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.5, 0.5, 4.99 )
+use_in_baked_light = true
+mesh = SubResource( 42 )
+material/0 = SubResource( 43 )
+
+[node name="ExitOmniLight" type="OmniLight" parent="ExitDoor"]
+light_size = 1.0
+light_bake_mode = 2
+shadow_enabled = true
+omni_range = 1.305
+
 [node name="AimerGeometry" type="ImmediateGeometry" parent="."]
 material_override = SubResource( 27 )
 cast_shadow = 0
@@ -1287,10 +1308,67 @@ anchor_right = 0.982142
 anchor_bottom = 0.200107
 margin_left = -0.0640001
 margin_bottom = -0.0640411
-custom_fonts/font = SubResource( 36 )
+custom_fonts/font = ExtResource( 30 )
 text = "Current match scores:"
 autowrap = true
 clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="SettingsButton" type="Button" parent="Control"]
+self_modulate = Color( 1, 1, 1, 0.611765 )
+anchor_left = 0.937
+anchor_right = 1.0
+anchor_bottom = 0.107
+margin_left = 0.511963
+margin_bottom = -0.200005
+
+[node name="Panel" type="Panel" parent="Control/SettingsButton"]
+modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = 1.0
+anchor_right = 5.0
+anchor_bottom = 9.375
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.03125
+anchor_top = 0.0133333
+anchor_right = 0.96875
+anchor_bottom = 0.2
+custom_fonts/font = ExtResource( 30 )
+text = "Settings:"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HSlider" type="HSlider" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.03125
+anchor_top = 0.213333
+anchor_right = 0.96875
+anchor_bottom = 0.253333
+max_value = 2.0
+tick_count = 3
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/SettingsButton/Panel/HSlider"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 4.0
+custom_fonts/normal_font = ExtResource( 21 )
+bbcode_enabled = true
+bbcode_text = "[color=green][u]Sublime graphics:[/u]
+NOT FOR LOW END DEVICES. All high resolution models,, lighting and particle effects will be rendered.[/color]"
+text = "Sublime graphics:
+NOT FOR LOW END DEVICES. All high resolution models,, lighting and particle effects will be rendered."
+scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1369,10 +1447,12 @@ rect_pivot_offset = Vector2( 512, 300 )
 
 [node name="Panel" type="Panel" parent="Control/TitlePanel"]
 anchor_left = 0.375
-anchor_top = 0.196667
+anchor_top = 0.197
 anchor_right = 0.625
-anchor_bottom = 0.803333
-margin_top = 7.62939e-06
+anchor_bottom = 0.803
+margin_left = -3.05176e-05
+margin_top = -0.199791
+margin_bottom = 0.199768
 rect_pivot_offset = Vector2( 128, 182 )
 
 [node name="Play" type="Button" parent="Control/TitlePanel/Panel"]
@@ -1485,8 +1565,6 @@ shape = SubResource( 40 )
 [connection signal="pressed" from="Control/TitlePanel/Panel/Play" to="." method="OnPlayPressed"]
 [connection signal="body_entered" from="CloseupArea" to="." method="OnCloseupAreaEntered"]
 [connection signal="timeout" from="CloseupTimer" to="." method="OnCloseupTimerTimeout"]
-[connection signal="area_entered" from="DespawnArea" to="." method="OnDespawnAreaEntered"]
-[connection signal="body_entered" from="DespawnArea" to="." method="OnDespawnBodyEntered"]
 
 [editable path="Player"]
 [editable path="Pins"]
