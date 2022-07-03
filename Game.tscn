@@ -1318,22 +1318,26 @@ __meta__ = {
 
 [node name="SettingsButton" type="Button" parent="Control"]
 self_modulate = Color( 1, 1, 1, 0.611765 )
-anchor_left = 0.937
+anchor_left = 0.9375
+anchor_top = 0.0266667
 anchor_right = 1.0
-anchor_bottom = 0.107
-margin_left = 0.511963
-margin_bottom = -0.200005
-
-[node name="Panel" type="Panel" parent="Control/SettingsButton"]
-modulate = Color( 1, 1, 1, 0.784314 )
-anchor_left = 1.0
-anchor_right = 5.0
-anchor_bottom = 9.375
+anchor_bottom = 0.133333
+text = "Settings"
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Label" type="Label" parent="Control/SettingsButton/Panel"]
+[node name="Panel" type="Panel" parent="Control/SettingsButton"]
+modulate = Color( 1, 1, 1, 0.784314 )
+anchor_left = 1.0
+anchor_top = -0.25
+anchor_right = 5.0
+anchor_bottom = 9.125
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Title" type="Label" parent="Control/SettingsButton/Panel"]
 anchor_left = 0.03125
 anchor_top = 0.0133333
 anchor_right = 0.96875
@@ -1342,6 +1346,18 @@ custom_fonts/font = ExtResource( 30 )
 text = "Settings:"
 autowrap = true
 clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Graphics" type="Label" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.03125
+anchor_top = 0.181667
+anchor_right = 0.96875
+anchor_bottom = 0.21
+margin_bottom = 7.62939e-06
+custom_fonts/font = ExtResource( 21 )
+text = "Graphics:"
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1362,13 +1378,106 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 4.0
+custom_colors/font_color_shadow = Color( 0.152941, 0.152941, 0.152941, 1 )
+custom_constants/shadow_as_outline = 1
 custom_fonts/normal_font = ExtResource( 21 )
 bbcode_enabled = true
 bbcode_text = "[color=green][u]Sublime graphics:[/u]
-NOT FOR LOW END DEVICES. All high resolution models,, lighting and particle effects will be rendered.[/color]"
+NOT FOR LOW END DEVICES. All high resolution models, lighting and particle effects will be rendered.[/color]"
 text = "Sublime graphics:
-NOT FOR LOW END DEVICES. All high resolution models,, lighting and particle effects will be rendered."
+NOT FOR LOW END DEVICES. All high resolution models, lighting and particle effects will be rendered."
 scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Controls" type="Label" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.03125
+anchor_top = 0.426667
+anchor_right = 0.96875
+anchor_bottom = 0.455
+margin_bottom = 7.62939e-06
+custom_fonts/font = ExtResource( 21 )
+text = "Controls:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Panel" type="Panel" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.03125
+anchor_top = 0.466667
+anchor_right = 0.96875
+anchor_bottom = 0.626667
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="Control/SettingsButton/Panel/Panel"]
+anchor_left = 0.0333333
+anchor_top = 0.0833333
+anchor_right = 0.480952
+anchor_bottom = 0.916667
+text = "Relative Flick"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button2" type="Button" parent="Control/SettingsButton/Panel/Panel"]
+anchor_left = 0.519048
+anchor_top = 0.0833333
+anchor_right = 0.97381
+anchor_bottom = 0.916667
+margin_right = -3.0
+text = "Bottom Flick"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Integration" type="Label" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.03125
+anchor_top = 0.68
+anchor_right = 0.96875
+anchor_bottom = 0.708333
+custom_fonts/font = ExtResource( 21 )
+text = "Integration:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="CheckBox" type="CheckBox" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.0178571
+anchor_top = 0.72
+anchor_right = 0.982143
+anchor_bottom = 0.761667
+margin_top = -3.05176e-05
+custom_fonts/font = ExtResource( 21 )
+text = "Display when I am playing on chit.gg."
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="CheckBox2" type="CheckBox" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.0178571
+anchor_top = 0.76
+anchor_right = 0.982143
+anchor_bottom = 0.801667
+custom_fonts/font = ExtResource( 21 )
+text = "Use my profile picture as my avatar."
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="CheckBox3" type="CheckBox" parent="Control/SettingsButton/Panel"]
+anchor_left = 0.0178571
+anchor_top = 0.803333
+anchor_right = 0.982143
+anchor_bottom = 0.845
+margin_bottom = -3.05176e-05
+custom_fonts/font = ExtResource( 21 )
+text = "Save scores and XP to my profile."
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -1562,6 +1671,7 @@ shape = SubResource( 40 )
 
 [connection signal="value_changed" from="Control/CurveSlider" to="Player/Player/Head/Camera" method="OnCurveSliderChanged"]
 [connection signal="pressed" from="Control/ScoresButton" to="." method="OnScoresPressed"]
+[connection signal="pressed" from="Control/SettingsButton" to="." method="OnSettingsPressed"]
 [connection signal="pressed" from="Control/TitlePanel/Panel/Play" to="." method="OnPlayPressed"]
 [connection signal="body_entered" from="CloseupArea" to="." method="OnCloseupAreaEntered"]
 [connection signal="timeout" from="CloseupTimer" to="." method="OnCloseupTimerTimeout"]

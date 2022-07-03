@@ -7,9 +7,10 @@ public class Game : Spatial
 	private readonly string[] graphicsBbLabels = {
 		"Low graphics:\nMAY IMPACT GAMEPLAY GREATLY. Will disable all lighting, particles and non-essential models.",
 		"Mid graphics:\nMost lighting effects will be disabled. Lower resolution LOD models will be used further away from the camera.",
-		"Sublime graphics:\nNOT FOR LOW END DEVICES. All high resolution models,, lighting and particle effects will be rendered."
+		"Sublime graphics:\nNOT FOR LOW END DEVICES. All high resolution models, lighting and particle effects will be rendered."
 	};
-	
+	private bool settingsOpened;
+
 	public override void _Ready()
 	{
 		GetNode<Pins>("Pins").Connect("PinKnockedDown", this,nameof(OnPinKnockedDown));
@@ -92,10 +93,28 @@ public class Game : Spatial
 		tween.Start();
 	}
 
+	private void OnSettingsPressed()
+	{
+		var tween = GetNode<Tween>("Control/Tween");
+		var settingsButton = GetNode<Button>("Control/SettingsButton");
+		tween.InterpolateProperty(
+			settingsButton,
+			"rect_position",
+			settingsButton.RectPosition,
+			settingsOpened
+				? new Vector2(GetViewport().GetVisibleRect().Size.x - settingsButton.RectSize.x, 16)
+				: new Vector2(GetViewport().GetVisibleRect().Size.x - settingsButton.GetNode<Panel>("Panel").RectSize.x - settingsButton.RectSize.x, 16),
+			0.5f,
+			Tween.TransitionType.Cubic,
+			Tween.EaseType.Out
+		);
+		tween.Start();
+		settingsOpened = !settingsOpened;
+	}
+
 	private void OnPinKnockedDown(int pinIndex)
 	{
 		//foreach on this after each round and set all back to white
 		((Button) GetNode("Control/DownPanel").GetChildren()[pinIndex]).Pressed = true;
 	}
 }
-
