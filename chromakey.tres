@@ -1,0 +1,14 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+uniform vec3 chroma_colour;
+uniform float margin : hint_range(-0.25, 0.25);
+
+void fragment(){
+	vec4 col = texture(TEXTURE, UV).rgba;
+	if (col.r <= chroma_colour.r+margin && col.g <= chroma_colour.g+margin && col.b <= chroma_colour.b+margin) {
+	    col.a = 0.0;
+	}
+	COLOR=col;
+}"

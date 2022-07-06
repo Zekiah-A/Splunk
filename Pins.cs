@@ -20,6 +20,12 @@ public class Pins : Spatial
 	{
 		if (body is RigidBody rigidBody)
 		{
+			//Instance hit effect particles between the ball and pin hit. //We should use OnCollisionShapeEntered to get the normal properly.
+			var particles = (Particles) GD.Load<PackedScene>("res://HitParticles.tscn").Instance(); //TODO: Load packed scenes like this beforehand to improve perf.
+			particles.Translation = rigidBody.Translation; //GetNode<Spatial>($"{pinIndex}").Translation + rigidBody.Translation / 2;
+			particles.Emitting = true;
+			AddChild(particles);
+
 			settleTimer.Start(3);
 			if (!audioPlayer.Playing)
 				PlayPinSound();
@@ -28,12 +34,6 @@ public class Pins : Spatial
 				await ToSignal(audioPlayer, "finished");
 				PlayPinSound();
 			}
-			
-			//Instance hit effect particles between the ball and pin hit. //We should use OnCollisionShapeEntered to get the normal properly.
-			var particles = (Particles) GD.Load<PackedScene>("res://HitParticles.tscn").Instance(); //TODO: Load packed scenes like this beforehand to improve perf.
-			particles.Translation = rigidBody.Translation; //GetNode<Spatial>($"{pinIndex}").Translation + rigidBody.Translation / 2;
-			particles.Emitting = true;
-			AddChild(particles);
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class Pins : Spatial
 	}
 	
 	//After 3 seconds of no collisions, with the ball, pins, other pins, or the collider under the world, we assume that all pins have settled down, and now can count how many were knocked over.
-	public void OnSettleTimerTimeout()
+	public async void OnSettleTimerTimeout()
 	{
 		for (int i = 0; i < GetChildCount() - 1; i++)
 		{
@@ -56,6 +56,7 @@ public class Pins : Spatial
 				pin.QueueFree();
 				EmitSignal(nameof(PinKnockedDown), int.Parse(pin.Name));
 			}
+			((Result) GetTree().Root.GetChild(0).GetNode("Control/ResultPanel")).PlayResult((int) Results.Strike);
 		}
 	}
 }

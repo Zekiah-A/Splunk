@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://DefaultPins.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LaunchBall.cs" type="Script" id=2]
@@ -30,6 +30,10 @@
 [ext_resource path="res://result_mask.png" type="Texture" id=28]
 [ext_resource path="res://aimer_pointer.png" type="Texture" id=29]
 [ext_resource path="res://reddit_sans_bold_title.tres" type="DynamicFont" id=30]
+[ext_resource path="res://move_arrow.png" type="Texture" id=31]
+[ext_resource path="res://strike_result.ogv" type="VideoStream" id=32]
+[ext_resource path="res://chromakey.tres" type="Shader" id=33]
+[ext_resource path="res://Result.cs" type="Script" id=34]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -244,9 +248,14 @@ font_data = ExtResource( 20 )
 [sub_resource type="ShaderMaterial" id=41]
 shader = ExtResource( 27 )
 shader_param/cutoff = 0.0
-shader_param/smooth_size = 0.2
-shader_param/color = Color( 0.643137, 0.643137, 0.643137, 1 )
+shader_param/smooth_size = 0.05
+shader_param/color = Color( 0.909804, 0.909804, 0.909804, 1 )
 shader_param/mask = ExtResource( 28 )
+
+[sub_resource type="ShaderMaterial" id=44]
+shader = ExtResource( 33 )
+shader_param/chroma_colour = null
+shader_param/margin = 0.15
 
 [sub_resource type="BoxShape" id=22]
 extents = Vector3( 0.58, 0.28, 0.1 )
@@ -286,6 +295,15 @@ extents = Vector3( 3, 0.1, 2 )
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 8 )
+__meta__ = {
+"_editor_description_": "Cull Layers:
+1) Main scene, integral to visuals.
+2) Main props, such as chairs.
+3) Additional props, non essential like posters.
+4) Gizmos, such as the aimer line drawn over.
+5) Player models
+6) Balls/Pins"
+}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
@@ -295,7 +313,13 @@ transform = Transform( -1, 0, -2.62268e-07, -1.42109e-14, 1, 5.96046e-08, 2.6226
 script = ExtResource( 10 )
 
 [node name="Body" parent="Player/Player" index="0"]
-layers = 2
+layers = 17
+
+[node name="Hand" parent="Player/Player" index="1"]
+layers = 17
+
+[node name="Head" parent="Player/Player" index="2"]
+layers = 17
 
 [node name="Camera" type="Camera" parent="Player/Player/Head" index="0"]
 transform = Transform( -7.15958, 0, 6.25911e-07, 0, 7.15958, 0, -8.58162e-07, 0, -9.81623, -5.68434e-14, -0.168105, 9.53674e-07 )
@@ -307,6 +331,27 @@ visible = false
 cast_to = Vector3( 0, 0, -10 )
 
 [node name="Tween" type="Tween" parent="Player"]
+
+[node name="Viewport" type="Viewport" parent="Player"]
+size = Vector2( 152, 152 )
+size_override_stretch = true
+transparent_bg = true
+handle_input_locally = false
+hdr = false
+render_target_v_flip = true
+render_target_update_mode = 3
+shadow_atlas_quad_0 = 0
+shadow_atlas_quad_1 = 0
+shadow_atlas_quad_2 = 0
+shadow_atlas_quad_3 = 0
+
+[node name="BackCamera" type="Camera" parent="Player/Viewport"]
+transform = Transform( 0.992612, 0.000417176, -0.121332, 0, 0.999994, 0.00343829, 0.121332, -0.00341289, 0.992606, -0.628, 0.677, 4.002 )
+cull_mask = 48
+fov = 16.7
+size = 1.57
+frustum_offset = Vector2( -0.004, 0 )
+far = 11.0
 
 [node name="PlayerLanePosition" type="Spatial" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.6, 1 )
@@ -924,6 +969,7 @@ anims/lane_barrier_down = ExtResource( 17 )
 transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 2.4, 1.5, -6.9 )
 
 [node name="Cube" parent="LaneBarrier2" index="0"]
+layers = 4
 mesh = SubResource( 31 )
 
 [node name="LaneBarrier3" parent="." instance=ExtResource( 16 )]
@@ -1028,6 +1074,37 @@ min_value = -50.0
 max_value = 50.0
 __meta__ = {
 "_edit_group_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="MovePanel" type="Panel" parent="Control"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.78125
+anchor_top = 0.853333
+anchor_right = 0.90625
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LeftButton" type="TextureButton" parent="Control/MovePanel"]
+anchor_right = 0.5
+anchor_bottom = 1.0
+texture_normal = ExtResource( 31 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="RightButton" type="TextureButton" parent="Control/MovePanel"]
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture_normal = ExtResource( 31 )
+expand = true
+flip_h = true
+__meta__ = {
 "_edit_use_anchors_": true
 }
 
@@ -1316,172 +1393,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="SettingsButton" type="Button" parent="Control"]
-self_modulate = Color( 1, 1, 1, 0.611765 )
-anchor_left = 0.9375
-anchor_top = 0.0266667
-anchor_right = 1.0
-anchor_bottom = 0.133333
-text = "Settings"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Panel" type="Panel" parent="Control/SettingsButton"]
-modulate = Color( 1, 1, 1, 0.784314 )
-anchor_left = 1.0
-anchor_top = -0.25
-anchor_right = 5.0
-anchor_bottom = 9.125
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Title" type="Label" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.03125
-anchor_top = 0.0133333
-anchor_right = 0.96875
-anchor_bottom = 0.2
-custom_fonts/font = ExtResource( 30 )
-text = "Settings:"
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Graphics" type="Label" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.03125
-anchor_top = 0.181667
-anchor_right = 0.96875
-anchor_bottom = 0.21
-margin_bottom = 7.62939e-06
-custom_fonts/font = ExtResource( 21 )
-text = "Graphics:"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="HSlider" type="HSlider" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.03125
-anchor_top = 0.213333
-anchor_right = 0.96875
-anchor_bottom = 0.253333
-max_value = 2.0
-tick_count = 3
-ticks_on_borders = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/SettingsButton/Panel/HSlider"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 4.0
-custom_colors/font_color_shadow = Color( 0.152941, 0.152941, 0.152941, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/normal_font = ExtResource( 21 )
-bbcode_enabled = true
-bbcode_text = "[color=green][u]Sublime graphics:[/u]
-NOT FOR LOW END DEVICES. All high resolution models, lighting and particle effects will be rendered.[/color]"
-text = "Sublime graphics:
-NOT FOR LOW END DEVICES. All high resolution models, lighting and particle effects will be rendered."
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Controls" type="Label" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.03125
-anchor_top = 0.426667
-anchor_right = 0.96875
-anchor_bottom = 0.455
-margin_bottom = 7.62939e-06
-custom_fonts/font = ExtResource( 21 )
-text = "Controls:"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Panel" type="Panel" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.03125
-anchor_top = 0.466667
-anchor_right = 0.96875
-anchor_bottom = 0.626667
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Button" type="Button" parent="Control/SettingsButton/Panel/Panel"]
-anchor_left = 0.0333333
-anchor_top = 0.0833333
-anchor_right = 0.480952
-anchor_bottom = 0.916667
-text = "Relative Flick"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Button2" type="Button" parent="Control/SettingsButton/Panel/Panel"]
-anchor_left = 0.519048
-anchor_top = 0.0833333
-anchor_right = 0.97381
-anchor_bottom = 0.916667
-margin_right = -3.0
-text = "Bottom Flick"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Integration" type="Label" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.03125
-anchor_top = 0.68
-anchor_right = 0.96875
-anchor_bottom = 0.708333
-custom_fonts/font = ExtResource( 21 )
-text = "Integration:"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="CheckBox" type="CheckBox" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.0178571
-anchor_top = 0.72
-anchor_right = 0.982143
-anchor_bottom = 0.761667
-margin_top = -3.05176e-05
-custom_fonts/font = ExtResource( 21 )
-text = "Display when I am playing on chit.gg."
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="CheckBox2" type="CheckBox" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.0178571
-anchor_top = 0.76
-anchor_right = 0.982143
-anchor_bottom = 0.801667
-custom_fonts/font = ExtResource( 21 )
-text = "Use my profile picture as my avatar."
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="CheckBox3" type="CheckBox" parent="Control/SettingsButton/Panel"]
-anchor_left = 0.0178571
-anchor_top = 0.803333
-anchor_right = 0.982143
-anchor_bottom = 0.845
-margin_bottom = -3.05176e-05
-custom_fonts/font = ExtResource( 21 )
-text = "Save scores and XP to my profile."
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="AimerPointer" type="TextureRect" parent="Control"]
 visible = false
 modulate = Color( 1, 1, 1, 0.501961 )
@@ -1514,6 +1425,16 @@ rect_pivot_offset = Vector2( 40, 40 )
 mouse_filter = 2
 texture = ExtResource( 29 )
 expand = true
+
+[node name="BackCameraTexture" type="TextureRect" parent="Control"]
+anchor_left = 0.84375
+anchor_top = 0.733333
+anchor_right = 0.992188
+anchor_bottom = 0.986667
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="CreditsPanel" type="Panel" parent="Control"]
 modulate = Color( 1, 1, 1, 0 )
@@ -1617,6 +1538,17 @@ anchor_top = 0.4
 anchor_right = 1.0
 anchor_bottom = 0.6
 mouse_filter = 2
+script = ExtResource( 34 )
+
+[node name="VideoPlayer" type="VideoPlayer" parent="Control/ResultPanel"]
+material = SubResource( 44 )
+anchor_top = -2.0
+anchor_right = 1.0
+anchor_bottom = 3.0
+stream = ExtResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="CloseupCamera" type="Camera" parent="."]
 transform = Transform( 0.5, 0.224144, -0.836516, 0, 0.965926, 0.258819, 0.866025, -0.12941, 0.482963, -1.2, 0.7, -5 )
@@ -1670,8 +1602,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, -2.5 )
 shape = SubResource( 40 )
 
 [connection signal="value_changed" from="Control/CurveSlider" to="Player/Player/Head/Camera" method="OnCurveSliderChanged"]
+[connection signal="pressed" from="Control/MovePanel/LeftButton" to="Player/Player/Head/Camera" method="OnMoveButtonPressed" binds= [ 1 ]]
+[connection signal="pressed" from="Control/MovePanel/RightButton" to="Player/Player/Head/Camera" method="OnMoveButtonPressed" binds= [ -1 ]]
 [connection signal="pressed" from="Control/ScoresButton" to="." method="OnScoresPressed"]
-[connection signal="pressed" from="Control/SettingsButton" to="." method="OnSettingsPressed"]
 [connection signal="pressed" from="Control/TitlePanel/Panel/Play" to="." method="OnPlayPressed"]
 [connection signal="body_entered" from="CloseupArea" to="." method="OnCloseupAreaEntered"]
 [connection signal="timeout" from="CloseupTimer" to="." method="OnCloseupTimerTimeout"]

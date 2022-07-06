@@ -33,6 +33,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="0"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -54,6 +55,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="1"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -75,6 +77,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="2"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -96,6 +99,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="3"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -117,6 +121,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="4"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = null
@@ -138,6 +143,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="5"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -159,6 +165,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="6"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -180,6 +187,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="7"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -201,6 +209,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="8"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
@@ -222,6 +231,7 @@ shape = SubResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="9"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.066, 0 )
+layers = 33
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 3 )
