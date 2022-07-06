@@ -247,7 +247,7 @@ font_data = ExtResource( 20 )
 
 [sub_resource type="ShaderMaterial" id=41]
 shader = ExtResource( 27 )
-shader_param/cutoff = 0.0
+shader_param/cutoff = 1.0
 shader_param/smooth_size = 0.05
 shader_param/color = Color( 0.909804, 0.909804, 0.909804, 1 )
 shader_param/mask = ExtResource( 28 )
@@ -1545,10 +1545,16 @@ material = SubResource( 44 )
 anchor_top = -2.0
 anchor_right = 1.0
 anchor_bottom = 3.0
+mouse_filter = 2
 stream = ExtResource( 32 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="Tween" type="Tween" parent="Control/ResultPanel"]
+
+[node name="Timer" type="Timer" parent="Control/ResultPanel"]
+wait_time = 0.1
 
 [node name="CloseupCamera" type="Camera" parent="."]
 transform = Transform( 0.5, 0.224144, -0.836516, 0, 0.965926, 0.258819, 0.866025, -0.12941, 0.482963, -1.2, 0.7, -5 )
