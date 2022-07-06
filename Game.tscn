@@ -1554,7 +1554,7 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="Control/ResultPanel"]
 
 [node name="Timer" type="Timer" parent="Control/ResultPanel"]
-wait_time = 0.1
+wait_time = 0.05
 
 [node name="CloseupCamera" type="Camera" parent="."]
 transform = Transform( 0.5, 0.224144, -0.836516, 0, 0.965926, 0.258819, 0.866025, -0.12941, 0.482963, -1.2, 0.7, -5 )

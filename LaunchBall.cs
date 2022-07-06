@@ -110,9 +110,9 @@ public class LaunchBall : Camera
 		RedrawAimer();
 	}
 	
-	private void OnMoveButtonPressed(int direction)
+	private void OnMoveButtonPressed(int direction) //This could be moved into LocalPlayer
 	{
-		step = step-direction < 0 ? 0 : step - direction > standPositions.Length ? standPositions.Length : step - direction;
+		//step = step + direction < 0 ? 0 : step+direction; //: step+direction > standPositions.Length ? standPositions.Length : step+direction;
 		var player = GetParent().GetParent().GetParent<Spatial>();
 		player.GetNode<Tween>("Tween").InterpolateProperty(
 			player,
