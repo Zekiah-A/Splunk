@@ -31,7 +31,7 @@
 [ext_resource path="res://aimer_pointer.png" type="Texture" id=29]
 [ext_resource path="res://reddit_sans_bold_title.tres" type="DynamicFont" id=30]
 [ext_resource path="res://move_arrow.png" type="Texture" id=31]
-[ext_resource path="res://strike_result.ogv" type="VideoStream" id=32]
+[ext_resource path="res://lane.png" type="Texture" id=32]
 [ext_resource path="res://chromakey.tres" type="Shader" id=33]
 [ext_resource path="res://Result.cs" type="Script" id=34]
 
@@ -45,8 +45,12 @@ ambient_light_color = Color( 0.678431, 0.690196, 0.592157, 1 )
 extents = Vector3( 0.6, 0.02, 3.9 )
 
 [sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0.933333, 0.768627, 0.368627, 1 )
-roughness = 0.41
+albedo_color = Color( 1, 0.901961, 0.647059, 1 )
+albedo_texture = ExtResource( 32 )
+roughness = 0.4
+roughness_texture = ExtResource( 32 )
+uv1_scale = Vector3( 1.8, 0, 2 )
+uv1_triplanar = true
 
 [sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 4 )
@@ -1546,7 +1550,6 @@ anchor_top = -2.0
 anchor_right = 1.0
 anchor_bottom = 3.0
 mouse_filter = 2
-stream = ExtResource( 32 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
