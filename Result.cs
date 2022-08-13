@@ -13,13 +13,13 @@ public class Result : Panel
 		GetNode<Timer>("Timer").Connect("timeout", this, nameof(LerpTransition));
 	}
 
-	public async void PlayResult(int result)
+	public async void PlayResult(ResultType result)
 	{
 		Visible = true;
 		Modulate = Colors.White;
 		((ShaderMaterial) Material).SetShaderParam("cutoff", 1f);
 		GetNode<Timer>("Timer").Start();
-		vp.Stream = ResourceLoader.Load<VideoStreamTheora>(result == 0 ? "strike_result.ogv" : result == 1 ? "spare_result.ogv" : null);
+		vp.Stream = ResourceLoader.Load<VideoStreamTheora>(result == ResultType.Strike ? "strike_result.ogv" : result == ResultType.Spare ? "spare_result.ogv" : null);
 		vp.Play();
 		await ToSignal(vp, "finished");
 		tween.InterpolateProperty(this, "modulate", Colors.White, Colors.Transparent, 0.1f);
@@ -31,7 +31,7 @@ public class Result : Panel
 	private void LerpTransition() => ((ShaderMaterial) Material).SetShaderParam("cutoff", (float)((ShaderMaterial) Material).GetShaderParam("cutoff") - 0.05f);
 }
 
-public enum Results
+public enum ResultType
 {
 	Strike,
 	Spare,

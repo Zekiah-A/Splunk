@@ -36,6 +36,8 @@ radius = 0.150184
 [node name="Ball" type="RigidBody"]
 mass = 8.0
 physics_material_override = SubResource( 6 )
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -51,3 +53,5 @@ shape = SubResource( 3 )
 stream = ExtResource( 2 )
 autoplay = true
 bus = "PinBallBus"
+
+[connection signal="body_shape_entered" from="." to="." method="OnBodyShapeCollision"]

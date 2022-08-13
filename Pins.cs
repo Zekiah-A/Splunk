@@ -56,7 +56,7 @@ public class Pins : Spatial
 				pin.QueueFree();
 				EmitSignal(nameof(PinKnockedDown), int.Parse(pin.Name));
 			}
-			((Result) GetTree().Root.GetChild(0).GetNode("Control/ResultPanel")).PlayResult((int) Results.Spare);
+			((Result) GetTree().Root.GetChild(0).GetNode("Control/ResultPanel")).PlayResult(ResultType.Strike);
 		}
 	}
 }

@@ -18,6 +18,12 @@ boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
+[compression]
+
+formats/zstd/long_distance_matching=true
+formats/zlib/compression_level=1
+formats/gzip/compression_level=1
+
 [input]
 
 game_right={
