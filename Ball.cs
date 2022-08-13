@@ -15,10 +15,12 @@ public class Ball : RigidBody
 	{
 		// j = CvDir {-50 < k < 50}; C = 1.8; D = 1.1;
 		// (1/10000)j(c^(dx)){0 < x < 10}
+		/*
 		state.LinearVelocity = new Vector3(
 			(float) (1e-4 * (CvDir * Math.Pow(C, D * Mathf.Abs(Translation.z))) + InitialVelocity.x),
 			LinearVelocity.y,
 			LinearVelocity.z
 		);
+		*/
 	}
 }

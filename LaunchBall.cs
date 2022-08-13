@@ -7,7 +7,7 @@ public class LaunchBall : Camera
 	private RigidBody ball;
 	private ImmediateGeometry aimerGeometry;
 	private float cvValue = 0;
-	private const int VelocityFwd = 6;
+	private const int VelocityFwd = 8;
 	private const int VelocityUp = 2;
 	private const int InvalidFlickDist = 20;
 	private Vector2 mouseFlickStart = Vector2.Zero;
@@ -16,8 +16,6 @@ public class LaunchBall : Camera
 	private readonly Color aimerNormal = new Color(1, 1, 1, 0.5f);
 	private readonly Color aimerInvalid = new Color(1, 0.2f, 0.2f, 0.5f);
 	private bool invalidFlick;
-	private readonly float[] standPositions = { -0.5f, -0.4f, -0.3f, -0.2f, -0.1f, 0, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f };
-	private int step = 6;
 
 	public override void _Ready()
 	{
@@ -75,6 +73,14 @@ public class LaunchBall : Camera
 			aimerPointers[1].RectPosition = mouseMotion.Position - ptrMidpoint;
 		}
 	}
+
+	public override void _Process(float delta)
+	{
+		if (Input.GetGyroscope().z > 20) //Does not work on mobile web, may need to modify godot for this functionality
+			Translate(new Vector3(1, 0, 0));
+		else if (Input.GetGyroscope().z < -20)
+			Translate(new Vector3(-1, 0, 0));
+	}
 	
 	//Optimised by BlobKat
 	private void RedrawAimer()
@@ -110,17 +116,4 @@ public class LaunchBall : Camera
 		RedrawAimer();
 	}
 	
-	private void OnMoveButtonPressed(int direction) //This could be moved into LocalPlayer
-	{
-		//step = step + direction < 0 ? 0 : step+direction; //: step+direction > standPositions.Length ? standPositions.Length : step+direction;
-		var player = GetParent().GetParent().GetParent<Spatial>();
-		player.GetNode<Tween>("Tween").InterpolateProperty(
-			player,
-			"translation",
-			player.Translation,
-			new Vector3(standPositions[step], player.Translation.y, player.Translation.z),
-			0.1f
-		);
-		player.GetNode<Tween>("Tween").Start();
-	}
 }
