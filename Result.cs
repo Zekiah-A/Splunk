@@ -22,10 +22,19 @@ public partial class Result : Panel
 		vp.Stream = ResourceLoader.Load<VideoStreamTheora>(result == ResultType.Strike ? "strike_result.ogv" : result == ResultType.Spare ? "spare_result.ogv" : null);
 		vp.Play();
 		await ToSignal(vp, "finished");
-		tween.InterpolateProperty(this, "modulate", Colors.White, Colors.Transparent, 0.1f);
-		tween.Start();
-		await ToSignal(tween, "tween_all_completed");
-		Visible = false;
+		var tween = CreateTween();
+		Modulate = Colors.White;
+		tween.TweenProperty(
+			this,
+			"modulate",
+			Colors.Transparent,
+			0.1f
+		);
+		tween.TweenCallback(Callable.From(() =>
+		{
+			Visible = false;
+		}));
+		tween.Play();
 	}
 	
 	private void LerpTransition() => ((ShaderMaterial) Material).SetShaderParameter("cutoff", (float)((ShaderMaterial) Material).GetShaderParameter("cutoff") - 0.05f);

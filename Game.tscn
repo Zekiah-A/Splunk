@@ -731,7 +731,7 @@ material = SubResource("9")
 
 [node name="GutterCSGBox" type="CSGBox3D" parent="RoomCSGCombiner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.5)
-size = Vector3(1, 0.01, 7)
+size = Vector3(2, 0.4, 7)
 
 [node name="GutterCSGCombiner" type="CSGCombiner3D" parent="."]
 
@@ -765,12 +765,14 @@ shape = SubResource("7")
 
 [node name="GutterL" type="CSGCylinder3D" parent="GutterCSGCombiner"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.8, 0, -3.5)
+flip_faces = true
 radius = 0.2
 height = 7.0
 material = ExtResource("6")
 
 [node name="GutterR" type="CSGCylinder3D" parent="GutterCSGCombiner"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.8, 0, -3.5)
+flip_faces = true
 radius = 0.2
 height = 7.0
 material = ExtResource("6")
@@ -779,7 +781,7 @@ material = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -3.55)
 material_override = SubResource("5")
 operation = 2
-size = Vector3(1, 0.4, 7.2)
+size = Vector3(2, 0.4, 7.2)
 
 [node name="BackWallCSGCombiner" type="CSGCombiner3D" parent="."]
 
@@ -1012,20 +1014,36 @@ mesh = SubResource("15")
 
 [node name="LaneOmniLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -6.1)
-light_color = Color(0.92549, 0.929412, 0.52549, 1)
+light_color = Color(1, 0.94902, 0.74902, 1)
 light_energy = 2.0
 light_size = 1.0
-omni_range = 0.6
-omni_attenuation = -0.5
+omni_range = 1.183
+omni_attenuation = 0.341511
 
-[node name="CeilingOmniLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2.9)
+[node name="LaneOmniLight2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 1.4, -6.1)
+light_color = Color(1, 0.94902, 0.74902, 1)
+light_energy = 2.0
 light_size = 1.0
-omni_range = 5.2
-omni_attenuation = 0.125
+omni_range = 1.183
+omni_attenuation = 0.341511
+
+[node name="LaneOmniLight3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.4, -6.1)
+light_color = Color(1, 0.94902, 0.74902, 1)
+light_energy = 2.0
+light_size = 1.0
+omni_range = 1.183
+omni_attenuation = 0.341511
 
 [node name="CeilingOmniLight2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 1.5)
+light_size = 1.0
+shadow_enabled = true
+omni_range = 4.5
+
+[node name="CeilingOmniLight3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -2.2)
 light_size = 1.0
 shadow_enabled = true
 omni_range = 4.5

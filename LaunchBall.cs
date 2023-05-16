@@ -46,19 +46,19 @@ public partial class LaunchBall : Camera3D
 				GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer2").Visible = false;
 				if (invalidFlick) return;
 				//Projection from the bottom centre of the screen (where the ball is thrown from)
-				var throwRoot = ProjectPosition(new Vector2(GetViewport().GetVisibleRect().Size.x / 2, GetViewport().GetVisibleRect().Size.y), 2);
+				var throwRoot = ProjectPosition(new Vector2(GetViewport().GetVisibleRect().Size.X / 2, GetViewport().GetVisibleRect().Size.Y), 2);
 				var ballScene = GD.Load<PackedScene>("res://Ball.tscn"); //TODO: Load packed scenes like this beforehand to improve perf.
-				ball = (RigidBody3D) ballScene.Instance();
+				ball = (RigidBody3D) ballScene.Instantiate();
 				ball.Position = throwRoot;
-				var flick = new Vector2(mouseFlickStart.x - mouseButton.Position.x, mouseFlickStart.y - mouseButton.Position.y).Normalized(); //Flicks from start to end
+				var flick = new Vector2(mouseFlickStart.X - mouseButton.Position.X, mouseFlickStart.Y - mouseButton.Position.Y).Normalized(); //Flicks from start to end
 				//var flick = new Vector2(GetViewport().GetVisibleRect().Size.x / 2 -  mouseButton.Position.x, GetViewport().GetVisibleRect().Size.y - mouseButton.Position.y).Normalized(); //"Flicks" from bottom centre screen to end
 				// the x value is the inverse of how you flicked across
 				//the y value gets how high the flick was in relation to the screen's height, and then multiplies by a constant, to determine throw height
 				//The z value basically judges how far up you dragged your mouse to flick, to determine with how much power it is thrown, it is clamped so that it can not be negative
 				((Ball) ball).InitialVelocity = ball.LinearVelocity = new Vector3(
-					-flick.x,
-					Mathf.Abs(GetViewport().GetVisibleRect().Size.y - mouseButton.Position.y) / GetViewport().GetVisibleRect().Size.y * VelocityUp,
-					throwRoot.z - Mathf.Clamp(flick.y, 0, 1) * VelocityFwd
+					-flick.X,
+					Mathf.Abs(GetViewport().GetVisibleRect().Size.Y - mouseButton.Position.Y) / GetViewport().GetVisibleRect().Size.Y * VelocityUp,
+					throwRoot.Z - Mathf.Clamp(flick.Y, 0, 1) * VelocityFwd
 				);
 				((Ball) ball).CvDir = cvValue;
 				AddChild(ball);
@@ -76,38 +76,38 @@ public partial class LaunchBall : Camera3D
 
 	public override void _Process(double delta)
 	{
-		if (Input.GetGyroscope().z > 20) //Does not work on mobile web, may need to modify godot for this functionality
+		if (Input.GetGyroscope().Z > 20) //Does not work on mobile web, may need to modify godot for this functionality
 			Translate(new Vector3(1, 0, 0));
-		else if (Input.GetGyroscope().z < -20)
+		else if (Input.GetGyroscope().Z < -20)
 			Translate(new Vector3(-1, 0, 0));
 	}
 	
 	//Optimised by BlobKat
 	private void RedrawAimer()
 	{
-		aimerGeometry.Clear();
-		aimerGeometry.Begin(Mesh.PrimitiveType.Triangles);
-		aimerGeometry.SetNormal(new Vector3(0, 0, 1));
-		var geometryY = GetTree().Root.GetChild(0).GetNode<Node3D>("AimerStart").Position.y;
+		aimerGeometry.ClearSurfaces();
+		aimerGeometry.SurfaceBegin(Mesh.PrimitiveType.Triangles);
+		aimerGeometry.SurfaceSetNormal(new Vector3(0, 0, 1));
+		var geometryY = GetTree().Root.GetChild(0).GetNode<Node3D>("AimerStart").Position.Y;
 		float func = 0; //Line up the end of the top of these polys, with the beginning of the next
 		for (var i = 0; i < 10; i++)
 		{
 			var nextFunc = (float) (1e-4 * (cvValue * Math.Pow(1.8f, 1.1f * i+1)));
-			aimerGeometry.SetUv(Vector2.Zero); //Bottom Left
-			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) - 0.3f, geometryY, -i));
-			aimerGeometry.SetUv(Vector2.Down); //Top left
-			aimerGeometry.AddVertex(new Vector3(nextFunc - 0.3f, geometryY, -i - 1));
-			aimerGeometry.SetUv(Vector2.Right); //Bottom right
-			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
-			aimerGeometry.SetUv(Vector2.Right); //Bottom right
-			aimerGeometry.AddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
-			aimerGeometry.SetUv(Vector2.Down); //Top Left
-			aimerGeometry.AddVertex(new Vector3(nextFunc - 0.3f, geometryY, -i - 1));
-			aimerGeometry.SetUv(Vector2.One); //Top Right
-			aimerGeometry.AddVertex(new Vector3(nextFunc + 0.3f, geometryY, -i - 1));
+			aimerGeometry.SurfaceSetUV(Vector2.Zero); //Bottom Left
+			aimerGeometry.SurfaceAddVertex(new Vector3((i == 0 ? 0 : func) - 0.3f, geometryY, -i));
+			aimerGeometry.SurfaceSetUV(Vector2.Down); //Top left
+			aimerGeometry.SurfaceAddVertex(new Vector3(nextFunc - 0.3f, geometryY, -i - 1));
+			aimerGeometry.SurfaceSetUV(Vector2.Right); //Bottom right
+			aimerGeometry.SurfaceAddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
+			aimerGeometry.SurfaceSetUV(Vector2.Right); //Bottom right
+			aimerGeometry.SurfaceAddVertex(new Vector3((i == 0 ? 0 : func) + 0.3f, geometryY, -i));
+			aimerGeometry.SurfaceSetUV(Vector2.Down); //Top Left
+			aimerGeometry.SurfaceAddVertex(new Vector3(nextFunc - 0.3f, geometryY, -i - 1));
+			aimerGeometry.SurfaceSetUV(Vector2.One); //Top Right
+			aimerGeometry.SurfaceAddVertex(new Vector3(nextFunc + 0.3f, geometryY, -i - 1));
 			func = nextFunc;
 		}
-		aimerGeometry.End();
+		aimerGeometry.SurfaceEnd();
 	}
 	
 	private void OnCurveSliderChanged(float value)

@@ -21,9 +21,9 @@ public partial class LocalPlayer : Node3D
 		if (LookLocked) return;
 		if (@event is InputEventMouseMotion mouseMotion)
 		{
-			RotateY(-mouseMotion.Relative.x * Sensitivity);
-			playerHead.RotateX(mouseMotion.Relative.y * Sensitivity);
-			playerHead.Rotation = new Vector3(Mathf.Clamp(playerHead.Rotation.x, -1.2f, 1.2f), playerHead.Rotation.y, playerHead.Rotation.z);
+			RotateY(-mouseMotion.Relative.X * Sensitivity);
+			playerHead.RotateX(mouseMotion.Relative.Y * Sensitivity);
+			playerHead.Rotation = new Vector3(Mathf.Clamp(playerHead.Rotation.X, -1.2f, 1.2f), playerHead.Rotation.Y, playerHead.Rotation.Z);
 		}
 	}
 
@@ -33,13 +33,13 @@ public partial class LocalPlayer : Node3D
 		playerHead.GetNode<Camera3D>("Camera3D").SetCullMaskValue(1, objectPosition != "PlayerLanePosition");
 		//PlayerLanePosition, PlayerDispenserPosition, PlayerSeatPosition/0,/1,/2
 		if (Position == GetTree().Root.GetChild(0).GetNode<Node3D>(objectPosition).Position) return;
-		tween.InterpolateProperty(
+		var tween = CreateTween();
+		tween.TweenProperty(
 			this,
 			"transform",
-			Transform3D,
-			GetTree().Root.GetChild(0).GetNode<Node3D>(objectPosition).Transform3D,
+			GetTree().Root.GetChild(0).GetNode<Node3D>(objectPosition).Transform,
 			3
 		);
-		tween.Start();
+		tween.Play();
 	}
 }

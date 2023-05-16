@@ -8,7 +8,7 @@ public partial class Pins : Node3D
 	private AudioStreamPlayer3D audioPlayer;
 	private List<int> pinsDown = new List<int>();
 	private Random rand = new Random();
-	[Signal] public delegate void PinKnockedDown(int pinIndex);
+	[Signal] public delegate void PinKnockedDownEventHandler(int pinIndex);
 	
 	public override void _Ready()
 	{
@@ -16,7 +16,7 @@ public partial class Pins : Node3D
 		settleTimer = GetNode<Timer>("SettleTimer");
 	}
 
-	private async void OnPinCollision(object body, int pinIndex)
+	private async void OnPinCollision(Node body, int pinIndex)
 	{
 		if (body is RigidBody3D rigidBody)
 		{
@@ -51,10 +51,10 @@ public partial class Pins : Node3D
 		{
 			var pin = GetChildren()[i] is RigidBody3D ? (RigidBody3D) GetChildren()[i] : null;
 			if (pin is null) return;
-			if (pin.Position.y < -0.1f || pin.RotationDegrees.x > 10 || pin.RotationDegrees.x < -10 || pin.RotationDegrees.z > 10 || pin.RotationDegrees.z < -10)
+			if (pin.Position.Y < -0.1f || pin.RotationDegrees.X > 10 || pin.RotationDegrees.X < -10 || pin.RotationDegrees.Z > 10 || pin.RotationDegrees.Z < -10)
 			{
 				pin.QueueFree();
-				EmitSignal(nameof(PinKnockedDown), int.Parse(pin.Name));
+				EmitSignal(nameof(PinKnockedDownEventHandler), int.Parse(pin.Name));
 			}
 			((Result) GetTree().Root.GetChild(0).GetNode("Control/ResultPanel")).PlayResult(ResultType.Strike);
 		}
