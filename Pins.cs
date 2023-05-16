@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Pins : Spatial
+public partial class Pins : Node3D
 {
 	private Timer settleTimer;
 	private AudioStreamPlayer3D audioPlayer;
@@ -18,11 +18,11 @@ public class Pins : Spatial
 
 	private async void OnPinCollision(object body, int pinIndex)
 	{
-		if (body is RigidBody rigidBody)
+		if (body is RigidBody3D rigidBody)
 		{
 			//Instance hit effect particles between the ball and pin hit. //We should use OnCollisionShapeEntered to get the normal properly.
 			/*var particles = (Particles) GD.Load<PackedScene>("res://HitParticles.tscn").Instance(); //TODO: Load packed scenes like this beforehand to improve perf.
-			particles.Translation = rigidBody.Translation; //GetNode<Spatial>($"{pinIndex}").Translation + rigidBody.Translation / 2;
+			particles.Position = rigidBody.Position; //GetNode<Node3D>($"{pinIndex}").Position + rigidBody.Position / 2;
 			particles.Emitting = true;
 			AddChild(particles);*/
 
@@ -49,9 +49,9 @@ public class Pins : Spatial
 	{
 		for (int i = 0; i < GetChildCount() - 1; i++)
 		{
-			var pin = GetChildren()[i] is RigidBody ? (RigidBody) GetChildren()[i] : null;
+			var pin = GetChildren()[i] is RigidBody3D ? (RigidBody3D) GetChildren()[i] : null;
 			if (pin is null) return;
-			if (pin.Translation.y < -0.1f || pin.RotationDegrees.x > 10 || pin.RotationDegrees.x < -10 || pin.RotationDegrees.z > 10 || pin.RotationDegrees.z < -10)
+			if (pin.Position.y < -0.1f || pin.RotationDegrees.x > 10 || pin.RotationDegrees.x < -10 || pin.RotationDegrees.z > 10 || pin.RotationDegrees.z < -10)
 			{
 				pin.QueueFree();
 				EmitSignal(nameof(PinKnockedDown), int.Parse(pin.Name));

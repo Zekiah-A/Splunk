@@ -2,10 +2,10 @@ using Godot;
 using System;
 using Array = Godot.Collections.Array;
 
-public class LaunchBall : Camera
+public partial class LaunchBall : Camera3D
 {
-	private RigidBody ball;
-	private ImmediateGeometry aimerGeometry;
+	private RigidBody3D ball;
+	private ImmediateMesh aimerGeometry;
 	private float cvValue = 0;
 	private const int VelocityFwd = 8;
 	private const int VelocityUp = 2;
@@ -19,7 +19,7 @@ public class LaunchBall : Camera
 
 	public override void _Ready()
 	{
-		aimerGeometry = GetTree().Root.GetChild(0).GetNode<ImmediateGeometry>("AimerGeometry");
+		aimerGeometry = GetTree().Root.GetChild(0).GetNode<ImmediateMesh>("AimerGeometry");
 		aimerPointers = new[]
 		{
 			GetTree().Root.GetChild(0).GetNode<TextureRect>("Control/AimerPointer"),
@@ -37,7 +37,7 @@ public class LaunchBall : Camera
 			{
 				mouseFlickStart = mouseButton.Position;
 				aimerPointers[0].Visible = true;
-				aimerPointers[0].RectPosition = mouseButton.Position - ptrMidpoint;
+				aimerPointers[0].Position = mouseButton.Position - ptrMidpoint;
 				aimerPointers[1].Visible = true;
 			}
 			else
@@ -48,8 +48,8 @@ public class LaunchBall : Camera
 				//Projection from the bottom centre of the screen (where the ball is thrown from)
 				var throwRoot = ProjectPosition(new Vector2(GetViewport().GetVisibleRect().Size.x / 2, GetViewport().GetVisibleRect().Size.y), 2);
 				var ballScene = GD.Load<PackedScene>("res://Ball.tscn"); //TODO: Load packed scenes like this beforehand to improve perf.
-				ball = (RigidBody) ballScene.Instance();
-				ball.Translation = throwRoot;
+				ball = (RigidBody3D) ballScene.Instance();
+				ball.Position = throwRoot;
 				var flick = new Vector2(mouseFlickStart.x - mouseButton.Position.x, mouseFlickStart.y - mouseButton.Position.y).Normalized(); //Flicks from start to end
 				//var flick = new Vector2(GetViewport().GetVisibleRect().Size.x / 2 -  mouseButton.Position.x, GetViewport().GetVisibleRect().Size.y - mouseButton.Position.y).Normalized(); //"Flicks" from bottom centre screen to end
 				// the x value is the inverse of how you flicked across
@@ -68,13 +68,13 @@ public class LaunchBall : Camera
 		if (@event is InputEventMouseMotion mouseMotion)
 		{
 			//If the two aimers are over each other, we allow the player to cancel the throw.
-			aimerPointers[1].Modulate = aimerPointers[0].RectPosition.DistanceTo(aimerPointers[1].RectPosition) < InvalidFlickDist ? aimerInvalid : aimerNormal;
-			invalidFlick = aimerPointers[0].RectPosition.DistanceTo(aimerPointers[1].RectPosition) < InvalidFlickDist;
-			aimerPointers[1].RectPosition = mouseMotion.Position - ptrMidpoint;
+			aimerPointers[1].Modulate = aimerPointers[0].Position.DistanceTo(aimerPointers[1].Position) < InvalidFlickDist ? aimerInvalid : aimerNormal;
+			invalidFlick = aimerPointers[0].Position.DistanceTo(aimerPointers[1].Position) < InvalidFlickDist;
+			aimerPointers[1].Position = mouseMotion.Position - ptrMidpoint;
 		}
 	}
 
-	public override void _Process(float delta)
+	public override void _Process(double delta)
 	{
 		if (Input.GetGyroscope().z > 20) //Does not work on mobile web, may need to modify godot for this functionality
 			Translate(new Vector3(1, 0, 0));
@@ -88,7 +88,7 @@ public class LaunchBall : Camera
 		aimerGeometry.Clear();
 		aimerGeometry.Begin(Mesh.PrimitiveType.Triangles);
 		aimerGeometry.SetNormal(new Vector3(0, 0, 1));
-		var geometryY = GetTree().Root.GetChild(0).GetNode<Spatial>("AimerStart").Translation.y;
+		var geometryY = GetTree().Root.GetChild(0).GetNode<Node3D>("AimerStart").Position.y;
 		float func = 0; //Line up the end of the top of these polys, with the beginning of the next
 		for (var i = 0; i < 10; i++)
 		{

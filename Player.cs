@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Player : Node
+public partial class Player : Node
 {
 	public string Name;
 	public Image ProfileImage;

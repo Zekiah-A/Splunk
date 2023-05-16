@@ -5,14 +5,14 @@ using System.IO;
 using System.Linq;
 using File = Godot.File;
 
-public class Game : Spatial
+public partial class Game : Node3D
 {
 	private static readonly Dictionary<string, object> defaultSettings = new Dictionary<string, object>
 		{ {"graphics", 2}, {"relativeControls", true}, {"displayPlaying", true}, {"pfpAvatar", true}, {"saveScores", false} };
 
 	public override void _Ready()
 	{
-		GetNode<Pins>("Pins").Connect("PinKnockedDown", this,nameof(OnPinKnockedDown));
+		GetNode<Pins>("Pins").Connect("PinKnockedDown", new Callable(this, nameof(OnPinKnockedDown)));
 	}
 
 	public static void SaveSetting(string name, object value) =>
@@ -33,15 +33,15 @@ public class Game : Spatial
 	{
 		if (body is Ball)
 		{
-			GetNode<Camera>("CloseupCamera").MakeCurrent();
+			GetNode<Camera3D>("CloseupCamera").MakeCurrent();
 			GetNode<Timer>("CloseupTimer").Start();
 		}
 	}
 
 	private void OnCloseupTimerTimeout()
 	{
-		GetNode<Camera>("CloseupCamera").ClearCurrent();
-		GetNode<Camera>("Player/Player/Head/Camera").MakeCurrent();
+		GetNode<Camera3D>("CloseupCamera").ClearCurrent();
+		GetNode<Camera3D>("Player/Player/Head/Camera3D").MakeCurrent();
 	}
 
 	private async void OnPlayPressed()
@@ -95,10 +95,10 @@ public class Game : Spatial
 		tween.InterpolateProperty(
 			scoresButton,
 			"rect_position",
-			scoresButton.RectPosition,
-			scoresButton.RectPosition.x == 0
-					? new Vector2(scoresButton.GetNode<Panel>("Panel").RectSize.x, GetViewport().GetVisibleRect().Size.y / 2 - scoresButton.RectSize.y / 2)
-					: new Vector2(0, GetViewport().GetVisibleRect().Size.y / 2 - scoresButton.RectSize.y / 2),
+			scoresButton.Position,
+			scoresButton.Position.x == 0
+					? new Vector2(scoresButton.GetNode<Panel>("Panel").Size.x, GetViewport().GetVisibleRect().Size.y / 2 - scoresButton.Size.y / 2)
+					: new Vector2(0, GetViewport().GetVisibleRect().Size.y / 2 - scoresButton.Size.y / 2),
 			1,
 			Tween.TransitionType.Cubic,
 			Tween.EaseType.Out
